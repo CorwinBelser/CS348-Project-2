@@ -36,8 +36,7 @@ public class Cauldron : MonoBehaviour
 
     private bool FindWordInDictionary()
     {
-        //TODO:
-        return true;
+        return WordManager.Instance.ValidWord(word);
     }
 
     public void Undo()
