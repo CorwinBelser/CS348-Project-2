@@ -41,4 +41,9 @@ public class Potion : MonoBehaviour
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
         label.color = new Color(label.color.r, label.color.g, label.color.b, 1f);
     }
+
+    public string GetLetter()
+    {
+        return letter;
+    }
 }

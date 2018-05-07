@@ -42,11 +42,25 @@ public class Cauldron : MonoBehaviour
 
     public void Undo()
     {
-        //TODO: remove potion from stack and call Potion.Restore
+        // Check that there is a letter to undo
+        if (word.Length > 0)
+        {
+            //Remove potion from stack and call Potion.Restore
+            string letter = word.Substring(word.Length - 1);
+            word = word.Remove(word.Length - 1);
+            label.text = word;
+            Potion potion = GameController.Instance.GetPotion(letter);
+
+            if (potion != null)
+                potion.Restore();
+        }
     }
 
     public void Clear()
     {
-        //TODO: remove all potions from stack and call Potion.Restore
+        for (int i = word.Length - 1; i >= 0; i--)
+        {
+            Undo();
+        }
     }
 }
