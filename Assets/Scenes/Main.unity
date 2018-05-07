@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 795475602}
   - component: {fileID: 795475603}
   - component: {fileID: 795475604}
+  - component: {fileID: 795475605}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -854,6 +855,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedPotionSprites:
   - {fileID: 21300000, guid: ac9f3602aa1702b409ee3378db054456, type: 3}
+--- !u!114 &795475605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795475601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737ae6024603a294daed35edf3a5b0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &853550170 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620,
