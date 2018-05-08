@@ -69,7 +69,7 @@ public class WordManager : MonoBehaviour {
 
     public bool ValidWord(string word)
     {
-        return words.Where(w => w.value == word).Count() > 0;
+        return words.Where(w => w.value.ToLower() == word.ToLower()).Count() > 0;
     }
 
     private void SerializeDictionary()
