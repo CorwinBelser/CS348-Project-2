@@ -30,9 +30,10 @@ public class WordManager : MonoBehaviour {
 
     private void TryLoadDictionary()
     {
-        //Check if the Dictionary object exists
-        if (File.Exists(Application.dataPath + DICTIONARY_PATH))
-            DeSerializeDictionary();
+        //Try to load the dictionary from the resource folder
+        TextAsset dictionary = Resources.Load<TextAsset>("Dictionary");
+        if (dictionary != null)
+            DeSerializeDictionary(dictionary.text);
         else
             BuildDictionary();
     }
@@ -40,7 +41,7 @@ public class WordManager : MonoBehaviour {
     private void BuildDictionary()
     {
         List<Word> wordList = new List<Word>();
-        string directory = Application.dataPath + "/Resources/Words/";
+        string directory = Application.dataPath + "/Words/";
         foreach (string path in Directory.GetFiles(directory))
         {
             if (LOAD_ALL_WORDS && path.Contains("full_list") && !path.Contains(".meta"))
@@ -92,9 +93,9 @@ public class WordManager : MonoBehaviour {
         }
     }
 
-    private void DeSerializeDictionary()
+    private void DeSerializeDictionary(string data)
     {
-        string data = File.ReadAllText(Application.dataPath + DICTIONARY_PATH);
+        //string data = File.ReadAllText(Application.dataPath + DICTIONARY_PATH);
         // Deserialize the serialization.
         XmlSerializer xml_serializer =
             new XmlSerializer(typeof(ListOfWords));
