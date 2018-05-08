@@ -9,18 +9,19 @@ public class GameController : MonoBehaviour
     [SerializeField] private Potion[] potions;
     [SerializeField] private Text spelledWords;
 
-    public static GameController Instance { get; private set; }
+    // Singleton may be needed again later but not currrently
+    //public static GameController Instance { get; private set; }
 
-    void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-        else
-        {
-            Debug.Log("Duplicate GameController instance! Destroy! Destroy!");
-            Destroy(this.gameObject);
-        }
-    }
+    //void Awake()
+    //{
+    //    if (Instance == null)
+    //        Instance = this;
+    //    else
+    //    {
+    //        Debug.Log("Duplicate GameController instance! Destroy! Destroy!");
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 
     // Use this for initialization
     void Start () {
@@ -48,16 +49,5 @@ public class GameController : MonoBehaviour
     void ResetSpelledWords()
     {
         spelledWords.text = "";
-    }
-    
-    public Potion GetPotion(string letter)
-    {
-        foreach (Potion p in potions)
-        {
-            if (p.GetLetter().Equals(letter))
-                return p;
-        }
-        // No potion exists for the given string. Return null :(
-        return null;
     }
 }

@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 1884407166}
-  spelledWords: {fileID: 455879804}
+  spelledWordsText: {fileID: 455879804}
 --- !u!4 &1175469792
 Transform:
   m_ObjectHideFlags: 0

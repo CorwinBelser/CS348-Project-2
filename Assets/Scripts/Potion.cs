@@ -11,6 +11,9 @@ public class Potion : MonoBehaviour
     private string letter = "";
     private bool used = false;
 
+    public string Letter
+    { get { return letter; } }
+
     public void Init()
     {
         Restore();
@@ -29,7 +32,7 @@ public class Potion : MonoBehaviour
         {
             //TODO: animate to cauldron
             used = true;
-            cauldron.AddLetter(letter);
+            cauldron.AddPotion(this);
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
             label.color = new Color(label.color.r, label.color.g, label.color.b, 0.5f);
         }
@@ -40,10 +43,5 @@ public class Potion : MonoBehaviour
         used = false;
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
         label.color = new Color(label.color.r, label.color.g, label.color.b, 1f);
-    }
-
-    public string GetLetter()
-    {
-        return letter;
     }
 }

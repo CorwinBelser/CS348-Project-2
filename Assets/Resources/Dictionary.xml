@@ -32,9 +32,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>animalweek</value>
+      <value>animal</value>
       <sorted>System.Char[]</sorted>
-      <length>10</length>
+      <length>6</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -92,9 +92,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>belowweek</value>
+      <value>below</value>
       <sorted>System.Char[]</sorted>
-      <length>9</length>
+      <length>5</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -164,9 +164,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>bunweek</value>
+      <value>bun</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -302,9 +302,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>dropweek</value>
+      <value>drop</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -350,9 +350,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>fitweek</value>
+      <value>fit</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -452,9 +452,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>hatweek</value>
+      <value>hat</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -470,9 +470,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>heatweek</value>
+      <value>heat</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -548,9 +548,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>iceweek</value>
+      <value>ice</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -614,9 +614,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>letweek</value>
+      <value>let</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -656,9 +656,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>lotweek</value>
+      <value>lot</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -668,9 +668,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>madweek</value>
+      <value>mad</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -752,9 +752,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>mugweek</value>
+      <value>mug</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -782,9 +782,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>nestweek</value>
+      <value>nest</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -866,9 +866,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>panweek</value>
+      <value>pan</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -968,9 +968,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>robweek</value>
+      <value>rob</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -992,9 +992,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>roseweek</value>
+      <value>rose</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1064,21 +1064,21 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>shellweek</value>
+      <value>shell</value>
       <sorted>System.Char[]</sorted>
-      <length>9</length>
+      <length>5</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>shipweek</value>
+      <value>ship</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>shopweek</value>
+      <value>shop</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1088,9 +1088,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>shutweek</value>
+      <value>shut</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1112,9 +1112,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>skinweek</value>
+      <value>skin</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1124,15 +1124,15 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>sledweek</value>
+      <value>sled</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>snackweek</value>
+      <value>snack</value>
       <sorted>System.Char[]</sorted>
-      <length>9</length>
+      <length>5</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1166,9 +1166,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>soilweek</value>
+      <value>soil</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1202,9 +1202,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>stickweek</value>
+      <value>stick</value>
       <sorted>System.Char[]</sorted>
-      <length>9</length>
+      <length>5</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1220,9 +1220,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>stuckweek</value>
+      <value>stuck</value>
       <sorted>System.Char[]</sorted>
-      <length>9</length>
+      <length>5</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1256,9 +1256,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>tapweek</value>
+      <value>tap</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1274,9 +1274,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>tenweek</value>
+      <value>ten</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1358,15 +1358,15 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>treeweek</value>
+      <value>tree</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>tripweek</value>
+      <value>trip</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1400,9 +1400,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>voteweek</value>
+      <value>vote</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1436,9 +1436,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>wellweek</value>
+      <value>well</value>
       <sorted>System.Char[]</sorted>
-      <length>8</length>
+      <length>4</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
@@ -1460,9 +1460,9 @@
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>
-      <value>wigweek</value>
+      <value>wig</value>
       <sorted>System.Char[]</sorted>
-      <length>7</length>
+      <length>3</length>
       <gradeLevel>1</gradeLevel>
     </Word>
     <Word>

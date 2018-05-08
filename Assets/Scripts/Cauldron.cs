@@ -6,29 +6,42 @@ using UnityEngine.UI;
 public class Cauldron : MonoBehaviour
 {
     [SerializeField] Text label;
-    [SerializeField] Text spelledWords;
+    [SerializeField] Text spelledWordsText;
     private string word = "";
+    private List<Potion> potionsInWord = new List<Potion>();
+    private List<string> spelledWords = new List<string>();
 
-    public void AddLetter(string letter)
+    public void AddPotion(Potion potion)
     {
-        //TODO: make this take in the entire potion, so we can build a stack for undo/clear
-        word += letter;
+        potionsInWord.Add(potion);
+        word += potion.Letter;
         label.text = word;
     }
 
     public void Validate()
     {
-        //TODO: check word against dictionary
-        bool valid = FindWordInDictionary();
-
-        if (valid)
+        if (!spelledWords.Contains(word))   // first check if word has already been created
         {
-            //TODO: animate word moving up into sky
-            spelledWords.text += ", " + word;
-            Clear();
+            bool valid = FindWordInDictionary();
+
+            if (valid)
+            {
+                Debug.Log("valid");
+                //TODO: animate word moving up into sky
+                spelledWords.Add(word);
+                spelledWordsText.text += ", " + word;
+                Clear();
+            }
+            else
+            {
+                Debug.Log("not valid");
+                //TODO: animate cauldron exploding
+                Clear();
+            }
         }
         else
         {
+            Debug.Log("already made");
             //TODO: animate cauldron exploding
             Clear();
         }
@@ -36,6 +49,7 @@ public class Cauldron : MonoBehaviour
 
     private bool FindWordInDictionary()
     {
+        //return true;
         return WordManager.Instance.ValidWord(word);
     }
 
@@ -44,20 +58,18 @@ public class Cauldron : MonoBehaviour
         // Check that there is a letter to undo
         if (word.Length > 0)
         {
-            //Remove potion from stack and call Potion.Restore
-            string letter = word.Substring(word.Length - 1);
-            word = word.Remove(word.Length - 1);
+            // Remove last potion from stack and call Potion.Restore
+            Potion potionToRestore = potionsInWord[potionsInWord.Count - 1];
+            potionsInWord.RemoveAt(potionsInWord.Count - 1);
+            word = word.Substring(0, word.Length - potionToRestore.Letter.Length);  // Substring is (startIndex, length)
             label.text = word;
-            Potion potion = GameController.Instance.GetPotion(letter);
-
-            if (potion != null)
-                potion.Restore();
+            potionToRestore.Restore();
         }
     }
 
     public void Clear()
     {
-        for (int i = word.Length - 1; i >= 0; i--)
+        for (int i = potionsInWord.Count; i > 0; i--)
         {
             Undo();
         }
