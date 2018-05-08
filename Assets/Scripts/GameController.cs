@@ -50,4 +50,7 @@ public class GameController : MonoBehaviour
     {
         spelledWords.text = "";
     }
+
+    public void QuitClick()
+    { Application.Quit(); }
 }
