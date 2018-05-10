@@ -14,13 +14,13 @@ public class Potion : MonoBehaviour
     public string Letter
     { get { return letter; } }
 
-    public void Init()
+    public void Init(string s)
     {
         Restore();
-        int i = Random.Range(0, Constants.letters.Length);
-        letter = Constants.letters[i];
+        //int i = Random.Range(0, Constants.letters.Length);
+        letter = s;
         label.text = letter;
-        i = Random.Range(0, Constants.potionSprites.Length);
+        int i = Random.Range(0, Constants.potionSprites.Length);
         sprite.sprite = Constants.potionSprites[i];
         //i = Random.Range(0, Constants.potionColors.Length);
         //sprite.color = Constants.potionColors[i];

@@ -10,6 +10,13 @@ public class Cauldron : MonoBehaviour
     private string word = "";
     private List<Potion> potionsInWord = new List<Potion>();
     private List<string> spelledWords = new List<string>();
+    private GameController gameController;
+
+    private void Start()
+    {
+        gameController = GameController.Instance;
+    }
+
 
     public void AddPotion(Potion potion)
     {
@@ -30,6 +37,8 @@ public class Cauldron : MonoBehaviour
                 //TODO: animate word moving up into sky
                 spelledWords.Add(word);
                 spelledWordsText.text += ", " + word;
+                if (word.Length >= 4)
+                    gameController.AddTime();
                 Clear();
             }
             else
