@@ -11,6 +11,10 @@ public class Constants : MonoBehaviour
 
     public static Color[] potionColors = new Color[] { Color.blue, Color.green, Color.red, Color.yellow };
 
+    /* Dictionary Variables */
+    public static WordDatabase wordDatabase;
+    public const string wordDatabaseFilePath = "WordDictionary";
+    public const string wordDatabaseFileExtension = ".bytes";
 
     private void Awake()
     {
