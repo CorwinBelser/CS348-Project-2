@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Cauldron : MonoBehaviour
 {
     [SerializeField] Text label;
-    [SerializeField] Text spelledWordsText;
     private string word = "";
     private List<Potion> potionsInWord = new List<Potion>();
     private List<string> spelledWords = new List<string>();
@@ -36,7 +35,7 @@ public class Cauldron : MonoBehaviour
                 Debug.Log("valid");
                 //TODO: animate word moving up into sky
                 spelledWords.Add(word);
-                spelledWordsText.text += ", " + word;
+                gameController.AddWord(word);
                 if (word.Length >= 4)
                     gameController.AddTime();
                 Clear();

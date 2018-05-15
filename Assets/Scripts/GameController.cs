@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private Cauldron cauldron;
     [SerializeField] private Potion[] potions;
-    [SerializeField] private Text spelledWords;
+    [SerializeField] private Book[] books;
     [SerializeField] private Text timerText;
     private List<string> lettersInPlay = new List<string>();
     private int timer;
@@ -33,15 +33,10 @@ public class GameController : MonoBehaviour
         ResetAll();
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public void ResetAll()
     {
         cauldron.Clear();   // TODO: depending on how we animate, we may need to create a separate function here
-        ResetSpelledWords();
+        ResetBooks();
         ResetPotions();
         lettersInPlay.Clear();  // TODO: we'll need to save this first somehow, yeah?
     }
@@ -88,9 +83,24 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void ResetSpelledWords()
+    void ResetBooks()
     {
-        spelledWords.text = "";
+        foreach(Book book in books)
+        {
+            book.Restore();
+        }
+    }
+
+    public void AddWord(string s)
+    {
+        foreach(Book book in books)
+        {
+            if(!book.Used)
+            {
+                book.SetText(s);
+                break;
+            }
+        }
     }
 
     void TimerTick()
