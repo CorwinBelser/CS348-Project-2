@@ -1,4 +1,4 @@
-﻿able
+able
 about
 above
 absent
@@ -320,7 +320,6 @@ cannon
 cannot
 canter
 canyon
-can’t
 cap
 capable
 captain
@@ -500,7 +499,6 @@ couches
 cougar
 cough
 could
-couldn’t
 council
 count
 countries
@@ -593,7 +591,6 @@ determine
 developing
 diamond
 did
-didn’t
 diet
 difference
 different
@@ -644,7 +641,6 @@ dollars
 dolphin
 domination
 done
-don’t
 door
 dough
 drank
@@ -993,7 +989,6 @@ hare
 harmful
 hat
 have
-haven’t
 hawaii
 he
 head
@@ -1023,8 +1018,6 @@ hero
 heroes
 hesitate
 hexagon
-he’ll
-he’s
 high
 highest
 highway
@@ -1133,16 +1126,10 @@ irritably
 irritate
 is
 island
-isn’t
 it
 its
 itself
-it’s
-it’s
 ivory
-i’d
-i’ll
-i’ve
 january
 jar
 jerked
@@ -1220,7 +1207,6 @@ lesson
 let
 letter
 lettuce
-let’s
 library
 lie
 life
@@ -1883,9 +1869,6 @@ shelf
 shell
 shelves
 shepherd
-she’d
-she’ll
-she’s
 shift
 shining
 ship
@@ -2155,15 +2138,10 @@ theme
 themselves
 then
 there
-there’s
 thermometer
 these
 they
 they
-they’ll
-they’re
-they’re
-they’ve
 thick
 thief
 thin
@@ -2337,7 +2315,6 @@ was
 wash
 washer
 washes
-wasn’t
 watch
 water
 wave
@@ -2364,9 +2341,6 @@ were
 were
 west
 wet
-we’d
-we’ll
-we’re
 whale
 what
 wheel
@@ -2418,7 +2392,6 @@ women
 wonder
 wonder
 wonderful
-won’t
 wood
 words
 work
@@ -2438,19 +2411,10 @@ write
 writing
 written
 wrong
-wrote
 yard
 year
 years
 yellow
-yes
 you
 young
 your
-your
-yourself
-you’ll
-you’re
-you’re
-you’ve
-zero

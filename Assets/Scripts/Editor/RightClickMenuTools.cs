@@ -9,6 +9,7 @@ using System.Linq;
 public class RightClickMenuTools {
 
     private const string WORD_LIST_PATH = "/Resources/Words/DictionarySource";
+    private const string GRADE_LEVEL_LIST_PATH = "/Resources/Words/gradeLevelWords.txt";
     private const string COLLECTION_LIST_PATH = "/Resources/Words/letterCollections.txt";
     private static char[] VALID_LETTERS =
     {
@@ -32,9 +33,16 @@ public class RightClickMenuTools {
                 if (!VALID_LETTERS.Contains(letter))
                 {
                     wordList.RemoveAt(i);
+                    break;
                 }
             }
         }
+
+        /* Sort the list of words alphabetically */
+        wordList.Sort();
+
+        /* Save this list of words as the grade level list */
+        IOHelper<string>.ToTextFile(wordList.ToDelimitedString(Environment.NewLine), Application.dataPath + GRADE_LEVEL_LIST_PATH);
 
         /* Sort the letters of each word */
         List<string> sortedList = new List<string>();
