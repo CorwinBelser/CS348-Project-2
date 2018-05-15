@@ -43,6 +43,13 @@ public class GameController : MonoBehaviour
 
     void ResetPotions()
     {
+        /* TODO:
+         * Choose random letter collection
+         * 
+         * Loop through all letters, spawning a potion
+         * 
+         * Loop through all blends, spawning a potion if the letters in the blend exist
+         */
         // determine letter assortment
         int j = 0;
         for (int i = 0; i < potions.Length; i++)
