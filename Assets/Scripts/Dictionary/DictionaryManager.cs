@@ -85,19 +85,14 @@ public class DictionaryManager : MonoBehaviour {
         List<string> words = new List<string>();
         foreach(string word in gradeLevelWords)
         {
-            bool match = true;
-            foreach (char letter in collection)
-            {
-                if (!word.Contains(letter))
-                {
-                    match = false;
-                    break;
-                }
-            }
-
-            if (match)
+            if (collection.ContainsChars(word))
                 words.Add(word);
         }
         return words;
+    }
+
+    public string RandomLetterSelection()
+    {
+        return letterCollections[UnityEngine.Random.Range(0, letterCollections.Length)];
     }
 }

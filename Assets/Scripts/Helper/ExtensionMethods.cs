@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using UnityEngine;
 
 public static class ExtensionMethods
 {
@@ -62,4 +63,14 @@ public static class ExtensionMethods
         }
     }
 
+    public static bool ContainsChars(this string word, string letters)
+    {
+        string lowered = word.ToLower();
+        foreach (char letter in letters)
+        {
+            if (!lowered.Contains(Char.ToLower(letter)))
+                return false;
+        }
+        return true;
+    }
 }

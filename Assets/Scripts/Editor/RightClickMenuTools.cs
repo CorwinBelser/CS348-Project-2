@@ -66,16 +66,7 @@ public class RightClickMenuTools {
             {
                 if (letters.Length >= wordToCheck.Length)
                     continue;
-                bool isSubset = true;
-                foreach (char letter in letters)
-                {
-                    if (!wordToCheck.Contains(letter))
-                    {
-                        isSubset = false;
-                        break;
-                    }
-                }
-                if (isSubset)
+                if (!wordToCheck.ContainsChars(letters))
                 {
                     unique = false;
                     break;
@@ -128,16 +119,7 @@ public class RightClickMenuTools {
             /* Calculate the number of words that this letter collection can make */
             foreach (string word in allWords)
             {
-                bool found = true;
-                foreach (char letter in word)
-                {
-                    if(!letterCollections[i].Contains(letter))
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                if (found)
+                if (!letterCollections[i].ContainsChars(word))
                     wordCounts[i] += 1;
             }
         }
