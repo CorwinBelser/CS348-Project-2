@@ -8,16 +8,33 @@ using System.Linq;
 
 public class RightClickMenuTools {
 
-    private const string WORD_LIST_PATH = "/Resources/Words/full_list.txt";
-    private const string COLLECTION_LIST_PATH = "/Resources/Words/LetterCollections.txt";
+    private const string WORD_LIST_PATH = "/Resources/DictionarySource";
+    private const string COLLECTION_LIST_PATH = "/Resources/LetterCollections.txt";
+    private static char[] VALID_LETTERS =
+    {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    };
 
-	[MenuItem("Assets/Create/Letter Collection Database", priority = 21)]
+	[MenuItem("Tools/Generate Letter Collection Database", priority = 1)]
     private static void CreateLetterCollectionDatabase()
     {
         Debug.Log("<color=blue>Generating Letter Collection Database...</color>");
         /* Load the full list of words */
-        string[] wordList = IOHelper<string>.LoadTextFile(Application.dataPath + WORD_LIST_PATH, Environment.NewLine);
-        Debug.Log(wordList.Length + " words loaded");
+        List<string> wordList = LoadAllWords();
+        //string[] wordList = IOHelper<string>.LoadTextFile(Application.dataPath + WORD_LIST_PATH, Environment.NewLine);
+        Debug.Log(wordList.Count + " words loaded");
+
+        /* Remove any words that have illegal characters */
+        for (int i = wordList.Count - 1; i >= 0; i--)
+        {
+            foreach (char letter in wordList[i])
+            {
+                if (!VALID_LETTERS.Contains(letter))
+                {
+                    wordList.RemoveAt(i);
+                }
+            }
+        }
 
         /* Sort the letters of each word */
         List<string> sortedList = new List<string>();
@@ -36,16 +53,107 @@ public class RightClickMenuTools {
         List<string> uniqueCollections = new List<string>();
         foreach (string letters in filteredList)
         {
-            if (sortedList.Where(w => w.Contains(letters) && w.Length > letters.Length).Count() == 0)
+            bool unique = true;
+            foreach (string wordToCheck in filteredList)
             {
-                uniqueCollections.Add(letters);
+                if (letters.Length >= wordToCheck.Length)
+                    continue;
+                bool isSubset = true;
+                foreach (char letter in letters)
+                {
+                    if (!wordToCheck.Contains(letter))
+                    {
+                        isSubset = false;
+                        break;
+                    }
+                }
+                if (isSubset)
+                {
+                    unique = false;
+                    break;
+                }
             }
+
+            if (unique)
+                uniqueCollections.Add(letters);
         }
         Debug.Log(uniqueCollections.Count + " unique collections found.");
+
+        /* Sort the list of unique collections */
+        uniqueCollections.Sort();
 
         /* Save this list of unique collections to a text file */
         IOHelper<string>.ToTextFile(uniqueCollections.ToDelimitedString(Environment.NewLine), Application.dataPath + COLLECTION_LIST_PATH);
         Debug.Log("File saved to: " + Application.dataPath + COLLECTION_LIST_PATH);
     }
-	
+
+    private static List<string> LoadAllWords()
+    {
+        List<string> wordList = new List<string>();
+        foreach (string path in Directory.GetFiles(Application.dataPath + WORD_LIST_PATH))
+        {
+            wordList.AddRange(IOHelper<string>.LoadTextFile(path, Environment.NewLine));
+        }
+
+        return wordList;
+    }
+
+    [MenuItem("Tools/Analyse Letter Collection Database", priority = 1)]
+    private static void PrintLetterCollectionStats()
+    {
+        /* Load the list of words */
+        List<string> allWords = LoadAllWords();
+
+        /* Load the list of letter collections */
+        string[] letterCollections = IOHelper<string>.LoadTextFile(Application.dataPath + COLLECTION_LIST_PATH, Environment.NewLine);
+        int[] wordCounts = new int[letterCollections.Length];
+
+        int minCollection = 0, maxCollection = 0, sumCollection = 0;
+
+        for(int i = 0; i < letterCollections.Length; i++)
+        {
+            if (letterCollections[i].Length < letterCollections[minCollection].Length)
+                minCollection = i;
+            if (letterCollections[i].Length > letterCollections[maxCollection].Length)
+                maxCollection = i;
+            sumCollection += letterCollections[i].Length;
+            /* Calculate the number of words that this letter collection can make */
+            foreach (string word in allWords)
+            {
+                bool found = true;
+                foreach (char letter in word)
+                {
+                    if(!letterCollections[i].Contains(letter))
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found)
+                    wordCounts[i] += 1;
+            }
+        }
+
+        Debug.Log("Minimum collection size: " + letterCollections[minCollection].Length + " (" + letterCollections[minCollection] + ")");
+        Debug.Log("Maximum collection size: " + letterCollections[maxCollection].Length + " (" + letterCollections[maxCollection] + ")");
+        Debug.Log("Average collection size: " + (sumCollection / letterCollections.Length));
+
+
+        /* Sum up all lengths */
+        int min = 0, max = 0, sum = 0;
+        for(int i = 0; i < wordCounts.Length; i++)
+        {
+            if (wordCounts[i] < wordCounts[min])
+                min = i;
+            if (wordCounts[i] > wordCounts[max])
+                max = i;
+            sum += wordCounts[i];
+        }
+
+        Debug.Log("Minimum number of words in a collection: " + wordCounts[min] + " (" + letterCollections[min] + ")");
+        Debug.Log("Maximum number of words in a collection: " + wordCounts[max] + " (" + letterCollections[max] + ")");
+        Debug.Log("Average number of words in a collection: " + (sum / wordCounts.Length));
+
+    }
+
 }
