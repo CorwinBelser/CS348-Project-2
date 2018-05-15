@@ -8,8 +8,8 @@ using System.Linq;
 
 public class RightClickMenuTools {
 
-    private const string WORD_LIST_PATH = "/Resources/DictionarySource";
-    private const string COLLECTION_LIST_PATH = "/Resources/LetterCollections.txt";
+    private const string WORD_LIST_PATH = "/Resources/Words/DictionarySource";
+    private const string COLLECTION_LIST_PATH = "/Resources/Words/letterCollections.txt";
     private static char[] VALID_LETTERS =
     {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
