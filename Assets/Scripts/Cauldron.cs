@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Cauldron : MonoBehaviour
 {
     [SerializeField] Text label;
+    [SerializeField] GameObject selectionSprite;
     private string word = "";
+    private bool validWord = false;
     private List<Potion> potionsInWord = new List<Potion>();
     private GameController gameController;
 
@@ -20,11 +22,22 @@ public class Cauldron : MonoBehaviour
         potionsInWord.Add(potion);
         word += potion.Letter;
         label.text = word;
+        CheckForValidWord();
+    }
+
+    private void CheckForValidWord()
+    {
+        validWord = gameController.ValidateWord(word);
+        if (validWord)
+            selectionSprite.SetActive(true);
+        else
+            selectionSprite.SetActive(false);
     }
 
     void OnMouseUp()
     {
-        gameController.ValidateWord(word, potionsInWord.Count);
+        if(validWord)
+            gameController.SubmitWord(word, potionsInWord.Count);
     }
 
     public void Undo()
@@ -38,6 +51,7 @@ public class Cauldron : MonoBehaviour
             word = word.Substring(0, word.Length - potionToRestore.Letter.Length);  // Substring is (startIndex, length)
             label.text = word;
             potionToRestore.Restore();
+            CheckForValidWord();
         }
     }
 

@@ -43,42 +43,60 @@ public class GameController : MonoBehaviour
         ResetAll();
     }
 
-    public void ValidateWord(string word, int potionCount)
+    public bool ValidateWord(string word)
     {
-        if (!History[History.Count - 1].IsWordFound(word))   // first check if word has already been created
-        {
-            bool valid = DictionaryManager.Instance.ValidWord(word);
+        if (History[History.Count - 1].IsWordFound(word))
+            return false;
 
-            if (valid)
-            {
-                Debug.Log("valid");
-                //TODO: animate word moving up into sky
-                /* Add the found word to the history */
-                History[History.Count - 1].AddFoundWord(word);
-                AddWordToBook(word);
-                // add extra time for creating long words and using blends
-                if (word.Length >= 4)
-                {
-                    AddTime(word.Length + word.Length - potionCount);
-                }
-                cauldron.Clear();
-            }
-            else
-            {
-                Debug.Log("not valid");
-                //TODO: animate cauldron exploding
-                cauldron.Clear();
-            }
-        }
-        else
-        {
-            Debug.Log("already made");
-            //TODO: animate cauldron exploding
-            cauldron.Clear();
-        }
+        return DictionaryManager.Instance.ValidWord(word);
     }
 
 
+    public void SubmitWord(string word, int potionCount)
+    {
+        History[History.Count - 1].AddFoundWord(word);
+        AddWordToBook(word);
+        // add extra time for creating long words and using blends
+        if (word.Length >= 4)
+        {
+            AddTime(word.Length + word.Length - potionCount);
+        }
+        cauldron.Clear();
+
+        // We may want to go back to this implementation
+
+        //if (!History[History.Count - 1].IsWordFound(word))   // first check if word has already been created
+        //{
+        //    bool valid = DictionaryManager.Instance.ValidWord(word);
+
+        //    if (valid)
+        //    {
+        //        Debug.Log("valid");
+        //        //TODO: animate word moving up into sky
+        //        /* Add the found word to the history */
+        //        History[History.Count - 1].AddFoundWord(word);
+        //        AddWordToBook(word);
+        //        // add extra time for creating long words and using blends
+        //        if (word.Length >= 4)
+        //        {
+        //            AddTime(word.Length + word.Length - potionCount);
+        //        }
+        //        cauldron.Clear();
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("not valid");
+        //        //TODO: animate cauldron exploding
+        //        cauldron.Clear();
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.Log("already made");
+        //    //TODO: animate cauldron exploding
+        //    cauldron.Clear();
+        //}
+    }
 
     public void ResetAll()
     {
