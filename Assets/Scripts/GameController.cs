@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
 
     public void ValidateWord(string word, int potionCount)
     {
-        if (!History[History.Count - 1].GetAllFoundWords().Contains(word))   // first check if word has already been created
+        if (!History[History.Count - 1].IsWordFound(word))   // first check if word has already been created
         {
             bool valid = DictionaryManager.Instance.ValidWord(word);
 
@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
                 Debug.Log("valid");
                 //TODO: animate word moving up into sky
                 /* Add the found word to the history */
-                History[History.Count - 1].AddFoundWord(word.ToLower());
+                History[History.Count - 1].AddFoundWord(word);
                 AddWordToBook(word);
                 // add extra time for creating long words and using blends
                 if (word.Length >= 4)
@@ -226,4 +226,7 @@ public class GameController : MonoBehaviour
 
     public void QuitClick()
     { Application.Quit(); }
+
+    public void MenuClick()
+    { SceneManager.LoadScene("Menu"); }
 }

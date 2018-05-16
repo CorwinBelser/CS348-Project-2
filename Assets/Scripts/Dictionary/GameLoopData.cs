@@ -21,6 +21,7 @@ public class GameLoopData {
 
     public void AddFoundWord(string word)
     {
+        word = word.ToLower();
         if (Words.ContainsKey(word))
             Words[word] = true;
         else
@@ -28,6 +29,11 @@ public class GameLoopData {
             if (!bonusWords.Contains(word))
                 bonusWords.Add(word);
         }
+    }
+
+    public bool IsWordFound(string word)
+    {
+        return GetAllFoundWords().Contains(word.ToLower());
     }
 
     public int TotalNumberOfWordsFound()

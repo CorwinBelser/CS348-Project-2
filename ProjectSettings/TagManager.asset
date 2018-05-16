@@ -51,11 +51,11 @@ TagManager:
   - name: Inventory
     uniqueID: 729544545
     locked: 0
-  - name: Potion
-    uniqueID: 3170120899
-    locked: 0
   - name: Cauldron
     uniqueID: 2888157797
+    locked: 0
+  - name: Potion
+    uniqueID: 3170120899
     locked: 0
   - name: Spelled Words
     uniqueID: 253908907
