@@ -8,8 +8,9 @@ using System.Linq;
 
 public class RightClickMenuTools {
 
-    private const string WORD_LIST_PATH = "/Resources/DictionarySource";
-    private const string COLLECTION_LIST_PATH = "/Resources/LetterCollections.txt";
+    private const string WORD_LIST_PATH = "/Resources/Words/DictionarySource";
+    private const string GRADE_LEVEL_LIST_PATH = "/Resources/Words/gradeLevelWords.txt";
+    private const string COLLECTION_LIST_PATH = "/Resources/Words/letterCollections.txt";
     private static char[] VALID_LETTERS =
     {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
@@ -32,9 +33,16 @@ public class RightClickMenuTools {
                 if (!VALID_LETTERS.Contains(letter))
                 {
                     wordList.RemoveAt(i);
+                    break;
                 }
             }
         }
+
+        /* Sort the list of words alphabetically */
+        wordList.Sort();
+
+        /* Save this list of words as the grade level list */
+        IOHelper<string>.ToTextFile(wordList.ToDelimitedString(Environment.NewLine), Application.dataPath + GRADE_LEVEL_LIST_PATH);
 
         /* Sort the letters of each word */
         List<string> sortedList = new List<string>();
@@ -58,16 +66,7 @@ public class RightClickMenuTools {
             {
                 if (letters.Length >= wordToCheck.Length)
                     continue;
-                bool isSubset = true;
-                foreach (char letter in letters)
-                {
-                    if (!wordToCheck.Contains(letter))
-                    {
-                        isSubset = false;
-                        break;
-                    }
-                }
-                if (isSubset)
+                if (!wordToCheck.ContainsChars(letters))
                 {
                     unique = false;
                     break;
@@ -120,16 +119,7 @@ public class RightClickMenuTools {
             /* Calculate the number of words that this letter collection can make */
             foreach (string word in allWords)
             {
-                bool found = true;
-                foreach (char letter in word)
-                {
-                    if(!letterCollections[i].Contains(letter))
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                if (found)
+                if (!letterCollections[i].ContainsChars(word))
                     wordCounts[i] += 1;
             }
         }
@@ -154,6 +144,34 @@ public class RightClickMenuTools {
         Debug.Log("Maximum number of words in a collection: " + wordCounts[max] + " (" + letterCollections[max] + ")");
         Debug.Log("Average number of words in a collection: " + (sum / wordCounts.Length));
 
+        /* Calculate the potion stats */
+        int minPotionIndex = 0, maxPotionIndex = 0;
+        int minPotionCount = 1000, maxPotionCount = 0, sumPotions = 0;
+        for (int i = 0; i < letterCollections.Length; i++)
+        {
+            int count = 0;
+            foreach (string phoneme in Constants.letters)
+            {
+                if (letterCollections[i].ContainsChars(phoneme))
+                    count++;
+            }
+
+            if (count < minPotionCount)
+            {
+                minPotionCount = count;
+                minPotionIndex = i;
+            }
+            if (count > maxPotionCount)
+            {
+                maxPotionCount = count;
+                maxPotionIndex = i;
+            }
+            sumPotions += count;
+        }
+
+        Debug.Log("Minimum number of potions given: " + minPotionCount + " (" + letterCollections[minPotionIndex] + ")");
+        Debug.Log("Maximum number of potions given: " + maxPotionCount + " (" + letterCollections[maxPotionIndex] + ")");
+        Debug.Log("Average number of potions given: " + (sumPotions / letterCollections.Length));
     }
 
 }

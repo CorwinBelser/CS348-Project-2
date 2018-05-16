@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private Cauldron cauldron;
-    [SerializeField] private Potion[] potions;
-    [SerializeField] private Book[] books;
-    [SerializeField] private Text timerText;
+    [SerializeField]
+    private Cauldron cauldron;
+    [SerializeField]
+    private Potion[] potions;
+    [SerializeField]
+    private Book[] books;
+    [SerializeField]
+    private Text timerText;
     private List<string> lettersInPlay = new List<string>();
     private int timer;
+    public List<GameLoopData> History;
 
     public static GameController Instance { get; private set; }
 
@@ -27,7 +33,9 @@ public class GameController : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
+        History = new List<GameLoopData>();
         timer = 75;
         InvokeRepeating("TimerTick", 1, 1);
         ResetAll();
@@ -43,30 +51,20 @@ public class GameController : MonoBehaviour
 
     void ResetPotions()
     {
-        // determine letter assortment
-        int j = 0;
-        for (int i = 0; i < potions.Length; i++)
+        /* Choose a random letter selection */
+        string letterCollection = DictionaryManager.Instance.RandomLetterSelection();
+        Debug.Log("Chosen letters: " + letterCollection);
+
+        GameLoopData gameData = new GameLoopData(letterCollection);
+        History.Add(gameData);
+
+        /* Add all letters and blends */
+        foreach (string letters in Constants.letters)
         {
-            switch (i)
-            {
-                case 0:
-                case 1:
-                    j = Random.Range(0, 5);     // vowels
-                    break;
-                case 2:
-                case 3:
-                    j = Random.Range(5, 26);    // consonants
-                    break;
-                case 4:
-                case 5:
-                    j = Random.Range(26, Constants.letters.Length);    // blends
-                    break;
-                default:
-                    j = Random.Range(0, 26);      // fill out the rest of the potions randomly
-                    break;
-            }
-            lettersInPlay.Add(Constants.letters[j]);
+            if (letterCollection.ContainsChars(letters))
+                lettersInPlay.Add(letters);
         }
+        Debug.Log("Giving potions: " + lettersInPlay.ToDelimitedString());
 
         // shuffle list (may be unnecessary in the future)
         for (int i = 0; i < lettersInPlay.Count; i++)
@@ -77,7 +75,7 @@ public class GameController : MonoBehaviour
             lettersInPlay[randomIndex] = temp;
         }
 
-        for (int i = 0; i < potions.Length; i++)
+        for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
         {
             potions[i].Init(lettersInPlay[i]);
         }
@@ -85,7 +83,7 @@ public class GameController : MonoBehaviour
 
     void ResetBooks()
     {
-        foreach(Book book in books)
+        foreach (Book book in books)
         {
             book.Restore();
         }
@@ -93,14 +91,17 @@ public class GameController : MonoBehaviour
 
     public void AddWord(string s)
     {
-        foreach(Book book in books)
+        /* Add the word to a free book */
+        foreach (Book book in books)
         {
-            if(!book.Used)
+            if (!book.Used)
             {
                 book.SetText(s);
                 break;
             }
         }
+        /* Add the found word to the history */
+        History[History.Count - 1].AddFoundWord(s);
     }
 
     void TimerTick()
