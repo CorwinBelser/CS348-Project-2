@@ -144,6 +144,34 @@ public class RightClickMenuTools {
         Debug.Log("Maximum number of words in a collection: " + wordCounts[max] + " (" + letterCollections[max] + ")");
         Debug.Log("Average number of words in a collection: " + (sum / wordCounts.Length));
 
+        /* Calculate the potion stats */
+        int minPotionIndex = 0, maxPotionIndex = 0;
+        int minPotionCount = 1000, maxPotionCount = 0, sumPotions = 0;
+        for (int i = 0; i < letterCollections.Length; i++)
+        {
+            int count = 0;
+            foreach (string phoneme in Constants.letters)
+            {
+                if (letterCollections[i].ContainsChars(phoneme))
+                    count++;
+            }
+
+            if (count < minPotionCount)
+            {
+                minPotionCount = count;
+                minPotionIndex = i;
+            }
+            if (count > maxPotionCount)
+            {
+                maxPotionCount = count;
+                maxPotionIndex = i;
+            }
+            sumPotions += count;
+        }
+
+        Debug.Log("Minimum number of potions given: " + minPotionCount + " (" + letterCollections[minPotionIndex] + ")");
+        Debug.Log("Maximum number of potions given: " + maxPotionCount + " (" + letterCollections[maxPotionIndex] + ")");
+        Debug.Log("Average number of potions given: " + (sumPotions / letterCollections.Length));
     }
 
 }
