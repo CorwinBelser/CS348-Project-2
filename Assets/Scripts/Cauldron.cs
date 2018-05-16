@@ -8,14 +8,12 @@ public class Cauldron : MonoBehaviour
     [SerializeField] Text label;
     private string word = "";
     private List<Potion> potionsInWord = new List<Potion>();
-    private List<string> spelledWords = new List<string>();
     private GameController gameController;
 
     private void Start()
     {
         gameController = GameController.Instance;
     }
-
 
     public void AddPotion(Potion potion)
     {
@@ -24,41 +22,9 @@ public class Cauldron : MonoBehaviour
         label.text = word;
     }
 
-    public void Validate()
+    void OnMouseUp()
     {
-        if (!spelledWords.Contains(word))   // first check if word has already been created
-        {
-            bool valid = FindWordInDictionary();
-
-            if (valid)
-            {
-                Debug.Log("valid");
-                //TODO: animate word moving up into sky
-                spelledWords.Add(word);
-                gameController.AddWord(word);
-                if (word.Length >= 4)
-                    gameController.AddTime();
-                Clear();
-            }
-            else
-            {
-                Debug.Log("not valid");
-                //TODO: animate cauldron exploding
-                Clear();
-            }
-        }
-        else
-        {
-            Debug.Log("already made");
-            //TODO: animate cauldron exploding
-            Clear();
-        }
-    }
-
-    private bool FindWordInDictionary()
-    {
-        //return true;
-        return DictionaryManager.Instance.ValidWord(word);
+        gameController.ValidateWord(word, potionsInWord.Count);
     }
 
     public void Undo()

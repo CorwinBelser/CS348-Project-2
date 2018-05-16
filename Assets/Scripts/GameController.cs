@@ -7,16 +7,18 @@ using System.Linq;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    private Cauldron cauldron;
-    [SerializeField]
-    private Potion[] potions;
-    [SerializeField]
-    private Book[] books;
-    [SerializeField]
-    private Text timerText;
+    [SerializeField] private Cauldron cauldron;
+    [SerializeField] private Potion[] potions;
+    [SerializeField] private Book[] books;
+    [SerializeField] private Text timerText;
+    [SerializeField] private GameObject resultsScreen;
+    [SerializeField] private Text foundWords;
+    [SerializeField] private Text missedWords;
+    [SerializeField] private Button nextPageButton;
+    [SerializeField] private Button lastPageButton;
     private List<string> lettersInPlay = new List<string>();
     private int timer;
+    private int resultsScreenIndex;
     public List<GameLoopData> History;
 
     public static GameController Instance { get; private set; }
@@ -41,6 +43,43 @@ public class GameController : MonoBehaviour
         ResetAll();
     }
 
+    public void ValidateWord(string word, int potionCount)
+    {
+        if (!History[History.Count - 1].GetAllFoundWords().Contains(word))   // first check if word has already been created
+        {
+            bool valid = DictionaryManager.Instance.ValidWord(word);
+
+            if (valid)
+            {
+                Debug.Log("valid");
+                //TODO: animate word moving up into sky
+                /* Add the found word to the history */
+                History[History.Count - 1].AddFoundWord(word.ToLower());
+                AddWordToBook(word);
+                // add extra time for creating long words and using blends
+                if (word.Length >= 4)
+                {
+                    AddTime(word.Length + word.Length - potionCount);
+                }
+                cauldron.Clear();
+            }
+            else
+            {
+                Debug.Log("not valid");
+                //TODO: animate cauldron exploding
+                cauldron.Clear();
+            }
+        }
+        else
+        {
+            Debug.Log("already made");
+            //TODO: animate cauldron exploding
+            cauldron.Clear();
+        }
+    }
+
+
+
     public void ResetAll()
     {
         cauldron.Clear();   // TODO: depending on how we animate, we may need to create a separate function here
@@ -59,15 +98,30 @@ public class GameController : MonoBehaviour
         History.Add(gameData);
 
         /* Add all letters and blends */
+        int lastSingleLetterIndex = -1;
         foreach (string letters in Constants.letters)
         {
             if (letterCollection.ContainsChars(letters))
+            {
                 lettersInPlay.Add(letters);
+                if (letters.Length == 1)
+                    lastSingleLetterIndex++;
+            }
         }
         Debug.Log("Giving potions: " + lettersInPlay.ToDelimitedString());
 
-        // shuffle list (may be unnecessary in the future)
-        for (int i = 0; i < lettersInPlay.Count; i++)
+        // shuffle list of single letters, then shuffle list of blends separately
+            // this ensures that we always distribute all letters before blends, if
+            // we run out of potion space
+        for (int i = 0; i <= lastSingleLetterIndex; i++)
+        {
+            string temp = lettersInPlay[i];
+            int randomIndex = Random.Range(i, lastSingleLetterIndex+1);
+            lettersInPlay[i] = lettersInPlay[randomIndex];
+            lettersInPlay[randomIndex] = temp;
+        }
+
+        for (int i = lastSingleLetterIndex+1; i < lettersInPlay.Count; i++)
         {
             string temp = lettersInPlay[i];
             int randomIndex = Random.Range(i, lettersInPlay.Count);
@@ -79,6 +133,12 @@ public class GameController : MonoBehaviour
         {
             potions[i].Init(lettersInPlay[i]);
         }
+
+        // turn off excess potions
+        for (int i=lettersInPlay.Count; i<potions.Length; i++)
+        {
+            potions[i].gameObject.SetActive(false);
+        }
     }
 
     void ResetBooks()
@@ -89,19 +149,17 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddWord(string s)
+    public void AddWordToBook(string word)
     {
         /* Add the word to a free book */
         foreach (Book book in books)
         {
             if (!book.Used)
             {
-                book.SetText(s);
+                book.SetText(word);
                 break;
             }
         }
-        /* Add the found word to the history */
-        History[History.Count - 1].AddFoundWord(s);
     }
 
     void TimerTick()
@@ -109,13 +167,62 @@ public class GameController : MonoBehaviour
         timer--;
         timerText.text = timer.ToString();
         if (timer <= 0)
-            SceneManager.LoadScene("Menu");
+        {
+            CancelInvoke("TimerTick");
+            //SceneManager.LoadScene("Menu");
+            resultsScreenIndex = 0;
+            EndGame();
+        }
     }
 
-    public void AddTime()
+    public void AddTime(int time)
     {
-        timer += 5;
+        timer += time;
     }
+
+    void EndGame()
+    {
+        resultsScreen.SetActive(true);
+
+        // enable / disable navigation buttons
+        if (resultsScreenIndex == 0)
+            lastPageButton.interactable = false;
+        else
+            lastPageButton.interactable = true;
+        if (resultsScreenIndex == History.Count - 1)
+            nextPageButton.interactable = false;
+        else
+            nextPageButton.interactable = true;
+
+        // reset text
+        foundWords.text = "FOUND WORDS";
+        missedWords.text = "MISSED WORDS";
+        
+        // display word lists
+        foreach (string foundWord in History[resultsScreenIndex].GetAllFoundWords())
+        {
+            foundWords.text = foundWords.text + "\n" + foundWord;
+        }
+        foreach (string missedWord in History[resultsScreenIndex].GetMissedGradeLevelWords())
+        {
+            missedWords.text = missedWords.text + "\n" + missedWord;
+        }
+    }
+
+    public void NextPageClick()
+    {
+        resultsScreenIndex++;
+        EndGame();
+    }
+
+    public void LastPageClick()
+    {
+        resultsScreenIndex--;
+        EndGame();
+    }
+
+    public void PlayAgainClick()
+    { SceneManager.LoadScene("Main"); }
 
     public void QuitClick()
     { Application.Quit(); }
