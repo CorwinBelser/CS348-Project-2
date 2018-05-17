@@ -9,14 +9,25 @@ public class Cauldron : MonoBehaviour
     private string word = "";
     private List<Potion> potionsInWord = new List<Potion>();
     private GameController gameController;
+    [SerializeField] private GameObject particleGameObject;
+    private ParticleSystem bubbleParticle;
+    private float emissionRate;
+    private float increasePerPotion = 2f;
 
     private void Start()
     {
         gameController = GameController.Instance;
+        bubbleParticle = particleGameObject.GetComponent<ParticleSystem>();
+        emissionRate = 1f;
+        UpdateBubbleEmission();
     }
 
     public void AddPotion(Potion potion)
     {
+        /* Increase the bubble emmision */
+        emissionRate += increasePerPotion;
+        UpdateBubbleEmission();
+
         potionsInWord.Add(potion);
         word += potion.Letter;
         label.text = word;
@@ -32,6 +43,9 @@ public class Cauldron : MonoBehaviour
         // Check that there is a letter to undo
         if (word.Length > 0)
         {
+            emissionRate -= increasePerPotion;
+            UpdateBubbleEmission();
+
             // Remove last potion from stack and call Potion.Restore
             Potion potionToRestore = potionsInWord[potionsInWord.Count - 1];
             potionsInWord.RemoveAt(potionsInWord.Count - 1);
@@ -47,5 +61,11 @@ public class Cauldron : MonoBehaviour
         {
             Undo();
         }
+    }
+
+    public void UpdateBubbleEmission()
+    {
+        ParticleSystem.EmissionModule emission = bubbleParticle.emission;
+        emission.rateOverTime = emissionRate;
     }
 }
