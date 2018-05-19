@@ -10,6 +10,7 @@ public class Cauldron : MonoBehaviour
     private List<Potion> potionsInWord = new List<Potion>();
     private GameController gameController;
     [SerializeField] private GameObject particleGameObject;
+    [SerializeField] private GameObject potionArcMidpoint;
     private ParticleSystem bubbleParticle;
     private float emissionRate;
     private float increasePerPotion = 2f;
@@ -67,5 +68,10 @@ public class Cauldron : MonoBehaviour
     {
         ParticleSystem.EmissionModule emission = bubbleParticle.emission;
         emission.rateOverTime = emissionRate;
+    }
+
+    public Vector2 GetPotionArcMidpoint()
+    {
+        return potionArcMidpoint.transform.position;
     }
 }
