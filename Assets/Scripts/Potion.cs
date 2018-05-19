@@ -52,7 +52,8 @@ public class Potion : MonoBehaviour
 
     private IEnumerator MoveToCauldron()
     {
-        /* TODO: Trigger a throw sound effect */
+        /* Trigger a throw sound effect */
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.PotionThrow);
         Vector2 destination = cauldron.gameObject.transform.position;
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, 0f, Random.Range(1f, 30f)));
         foreach (Vector2 position in CoolStuff.PositionOverParabola(startPosition, cauldron.GetPotionArcMidpoint(), destination, .5f))
@@ -62,7 +63,8 @@ public class Potion : MonoBehaviour
             yield return null;
         }
 
-        /* TODO: Trigger a bottle break sound effect */
+        /* Trigger a bottle break sound effect */
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.PotionBreak);
         /* The potion is now at the cauldron */
         cauldron.AddPotion(this);
         yield return new WaitForSeconds(.5f);
@@ -88,12 +90,13 @@ public class Potion : MonoBehaviour
         transform.rotation = Quaternion.identity;
 
         /* Fade the potion back in */
-        for (float alpha = 0f; alpha < 1f; alpha += Time.deltaTime / 2f) /* 2 seconds to reach full alpha */
+        for (float alpha = 0f; alpha < 1f; alpha += Time.deltaTime) /* 2 seconds to reach full alpha */
         {
             sprite.color = new Color(original.r, original.g, original.b, alpha);
             yield return null;
         }
-
+        /* Snap to original color */
+        sprite.color = original;
         animationCR = null;
     }
 
