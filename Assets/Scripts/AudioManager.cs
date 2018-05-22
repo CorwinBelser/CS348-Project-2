@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
 
     [SerializeField] private AudioClip potionThrow;
     [SerializeField] private AudioClip potionBreak;
-    private AudioSource audio;
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour {
 
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void PlayEffect(SoundEffects effect)
@@ -37,10 +37,10 @@ public class AudioManager : MonoBehaviour {
         switch (effect)
         {
             case SoundEffects.PotionBreak:
-                audio.PlayOneShot(potionBreak);
+                audioSource.PlayOneShot(potionBreak);
                 break;
             case SoundEffects.PotionThrow:
-                audio.PlayOneShot(potionThrow);
+                audioSource.PlayOneShot(potionThrow);
                 break;
         }
     }
