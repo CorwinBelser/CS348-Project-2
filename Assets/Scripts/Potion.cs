@@ -75,7 +75,9 @@ public class Potion : MonoBehaviour
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.PotionBreak);
         /* The potion is now at the cauldron */
         cauldron.AddPotion(this);
-        yield return new WaitForSeconds(.5f);
+        //yield return new WaitForSeconds(.5f);
+        /* Destroy the duplicate potion */
+        Destroy(this.gameObject);
 
         /* Trigger the return animation */
         //animationCR = StartCoroutine(ReturnToShelf());

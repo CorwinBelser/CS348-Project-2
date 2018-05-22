@@ -67,7 +67,7 @@ public class Cauldron : MonoBehaviour
             word = word.Substring(0, word.Length - potionToRestore.Letter.Length);  // Substring is (startIndex, length)
             label.text = word;
             //potionToRestore.Restore();
-            Destroy(potionToRestore.gameObject);
+            //Destroy(potionToRestore.gameObject); // CB: Moved the destroy call to the potion itself, so it will already be gone by now
         }
     }
 
