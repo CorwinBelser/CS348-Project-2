@@ -9,11 +9,17 @@ public class AudioManager : MonoBehaviour {
     public enum SoundEffects
     {
         PotionThrow,
-        PotionBreak
+        PotionBreak,
+        ValidWord,
+        InvalidWord,
+        ReusedWord
     }
 
     [SerializeField] private AudioClip potionThrow;
     [SerializeField] private AudioClip potionBreak;
+    [SerializeField] private AudioClip validWord;
+    [SerializeField] private AudioClip invalidWord;
+    [SerializeField] private AudioClip reusedWord;
     private AudioSource audioSource;
 
     void Awake()
@@ -41,6 +47,15 @@ public class AudioManager : MonoBehaviour {
                 break;
             case SoundEffects.PotionThrow:
                 audioSource.PlayOneShot(potionThrow);
+                break;
+            case SoundEffects.ValidWord:
+                audioSource.PlayOneShot(validWord);
+                break;
+            case SoundEffects.InvalidWord:
+                audioSource.PlayOneShot(invalidWord);
+                break;
+            case SoundEffects.ReusedWord:
+                audioSource.PlayOneShot(reusedWord);
                 break;
         }
     }

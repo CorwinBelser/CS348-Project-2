@@ -135,3 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potionThrow: {fileID: 8300000, guid: 95f928b5d8c0fb3489b1afa280895273, type: 3}
   potionBreak: {fileID: 8300000, guid: 884c5646cb43edf48bff13cbef7a3bf3, type: 3}
+  validWord: {fileID: 8300000, guid: c8e0e8477c85a1848866a9adb04c5e02, type: 3}
+  invalidWord: {fileID: 8300000, guid: 2f968ce6556f85f44abc0fec3222eb8f, type: 3}
+  reusedWord: {fileID: 8300000, guid: 2fc055c8c4af8d840901925a39ae9511, type: 3}

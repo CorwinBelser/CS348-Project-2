@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("valid");
                 //TODO: animate word moving up into sky
+                /* Play the validWord sound effect */
+                AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.ValidWord);
                 /* Add the found word to the history */
                 History[History.Count - 1].AddFoundWord(word);
                 AddWordToBook(word);
@@ -67,6 +69,8 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("not valid");
                 //TODO: animate cauldron exploding
+                /* Play the invalidWord sound effect */
+                AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.InvalidWord);
                 cauldron.Clear();
             }
         }
@@ -74,6 +78,8 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("already made");
             //TODO: animate cauldron exploding
+            /* Play the reusedWord sound effect */
+            AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.ReusedWord);
             cauldron.Clear();
         }
     }
