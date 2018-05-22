@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Potion[] potions;
     [SerializeField] private Book[] books;
     [SerializeField] private Text timerText;
+    [SerializeField] private Text roundStartText;
     [SerializeField] private GameObject resultsScreen;
     [SerializeField] private Text foundWords;
     [SerializeField] private Text missedWords;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
     public List<GameLoopData> History;
 
     public static GameController Instance { get; private set; }
+    private static int round = 0;
 
     void Awake()
     {
@@ -38,9 +40,17 @@ public class GameController : MonoBehaviour
     void Start()
     {
         History = new List<GameLoopData>();
-        timer = 75;
-        InvokeRepeating("TimerTick", 1, 1);
-        ResetAll();
+        timer = 60;     // adjust this based on performance in previous round
+        round++;
+        int roundWords = (5 + (int)System.Math.Floor(round / 3.0f));
+        // calculate # of words needed based on round (5 + floor(round/3.0f));
+        ResetAll();     // ResetBooks() needs to color code books appropriately, ResetLetters() needs to pick a collection based on # words needed
+
+        // display round start message (with smoke particle effect)
+        roundStartText.text = "Round " + round + "\nMake " + roundWords + " Words!";
+        // fade message (and particle effect)
+
+        InvokeRepeating("TimerTick", 10, 1);
     }
 
     public void ValidateWord(string word, int potionCount)
