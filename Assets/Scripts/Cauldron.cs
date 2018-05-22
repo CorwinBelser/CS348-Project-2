@@ -15,6 +15,19 @@ public class Cauldron : MonoBehaviour
     private float emissionRate;
     private float increasePerPotion = 2f;
 
+    public static Cauldron Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Debug.Log("Duplicate Cauldron instance! Destroy! Destroy!");
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Start()
     {
         gameController = GameController.Instance;
@@ -25,6 +38,7 @@ public class Cauldron : MonoBehaviour
 
     public void AddPotion(Potion potion)
     {
+        Debug.Log(potion.Letter);
         /* Increase the bubble emmision */
         emissionRate += increasePerPotion;
         UpdateBubbleEmission();
@@ -52,7 +66,8 @@ public class Cauldron : MonoBehaviour
             potionsInWord.RemoveAt(potionsInWord.Count - 1);
             word = word.Substring(0, word.Length - potionToRestore.Letter.Length);  // Substring is (startIndex, length)
             label.text = word;
-            potionToRestore.Restore();
+            //potionToRestore.Restore();
+            Destroy(potionToRestore.gameObject);
         }
     }
 

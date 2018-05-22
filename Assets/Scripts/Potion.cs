@@ -29,17 +29,25 @@ public class Potion : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (animationCR == null)
-            animationCR = StartCoroutine(MoveToCauldron());
+        Potion flyingPotion = Instantiate(this.gameObject).GetComponent<Potion>();
+        flyingPotion.ToInfinityAndBeyond(letter);
+        //if (animationCR == null)
+        //    animationCR = StartCoroutine(MoveToCauldron());
+    }
+
+    public void ToInfinityAndBeyond(string s)
+    {
+        letter = s;
+        StartCoroutine(MoveToCauldron());
     }
 
     public void Restore()   // "Reset" is a protected keyword
     {
-        if (animationCR != null)
-        {
-            StopCoroutine(animationCR);
-            animationCR = null;
-        }
+        //if (animationCR != null)
+        //{
+        //    StopCoroutine(animationCR);
+        //    animationCR = null;
+        //}
         transform.position = startPosition;
         transform.rotation = Quaternion.identity;
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
@@ -70,42 +78,27 @@ public class Potion : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         /* Trigger the return animation */
-        animationCR = StartCoroutine(ReturnToShelf());
+        //animationCR = StartCoroutine(ReturnToShelf());
     }
 
-    private IEnumerator ReturnToShelf()
-    {
-        //while (!IsWithin(transform.position, startPosition))
-        //{
-        //    transform.position = Vector2.MoveTowards(transform.position, startPosition, Time.deltaTime * 20f);
-        //    yield return null;
-        //}
+    //private IEnumerator ReturnToShelf()
+    //{
+    //    /* Kill the alpha */
+    //    Color original = sprite.color;
+    //    sprite.color = new Color(original.r, original.g, original.b, 0f);
 
-        /* Kill the alpha */
-        Color original = sprite.color;
-        sprite.color = new Color(original.r, original.g, original.b, 0f);
+    //    /* Snap into place */
+    //    transform.position = startPosition;
+    //    transform.rotation = Quaternion.identity;
 
-        /* Snap into place */
-        transform.position = startPosition;
-        transform.rotation = Quaternion.identity;
-
-        /* Fade the potion back in */
-        for (float alpha = 0f; alpha < 1f; alpha += Time.deltaTime) /* 2 seconds to reach full alpha */
-        {
-            sprite.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-        /* Snap to original color */
-        sprite.color = original;
-        animationCR = null;
-    }
-
-    private bool IsWithin(Vector3 obj1, Vector3 obj2)
-    {
-        float tolerance = 0.15f;
-        if ((Mathf.Abs(obj1.x - obj2.x) < tolerance) && (Mathf.Abs(obj1.y - obj2.y) < tolerance))
-            return true;
-        else
-            return false;
-    }
+    //    /* Fade the potion back in */
+    //    for (float alpha = 0f; alpha < 1f; alpha += Time.deltaTime) /* 2 seconds to reach full alpha */
+    //    {
+    //        sprite.color = new Color(original.r, original.g, original.b, alpha);
+    //        yield return null;
+    //    }
+    //    /* Snap to original color */
+    //    sprite.color = original;
+    //    animationCR = null;
+    //}
 }
