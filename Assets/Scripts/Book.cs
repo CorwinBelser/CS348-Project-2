@@ -19,11 +19,18 @@ public class Book : MonoBehaviour
         isUsed = true;
     }
 
-    public void Restore()
+    public void Restore(bool neededToAdvance)
     {
         isUsed = false;
         text.text = "";
-        int i = Random.Range(0, Constants.bookSprites.Length);
-        sprite.sprite = Constants.bookSprites[i];
+        if(neededToAdvance)
+        {
+            sprite.sprite = Constants.bookSprites[0];
+        }
+        else
+        {
+            int i = Random.Range(1, Constants.bookSprites.Length);
+            sprite.sprite = Constants.bookSprites[i];
+        }
     }
 }

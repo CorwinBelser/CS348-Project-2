@@ -20,10 +20,14 @@ public class GameController : MonoBehaviour
     private List<string> lettersInPlay = new List<string>();
     private int timer;
     private int resultsScreenIndex;
+    [SerializeField] private Sprite winSprite;
+    [SerializeField] private Sprite loseSprite;
+    [SerializeField] private GameObject roundEndClouds;
     public List<GameLoopData> History;
 
     public static GameController Instance { get; private set; }
     private static int round = 0;
+    private int roundWords = 0;
 
     void Awake()
     {
@@ -42,8 +46,7 @@ public class GameController : MonoBehaviour
         History = new List<GameLoopData>();
         timer = 60;     // adjust this based on performance in previous round
         round++;
-        int roundWords = (5 + (int)System.Math.Floor(round / 3.0f));
-        // calculate # of words needed based on round (5 + floor(round/3.0f));
+        roundWords = (5 + (int)System.Math.Floor(round / 3.0f));    // calculate # of words needed based on round
         ResetAll();     // ResetBooks() needs to color code books appropriately, ResetLetters() needs to pick a collection based on # words needed
 
         // display round start message (with smoke particle effect)
@@ -159,9 +162,9 @@ public class GameController : MonoBehaviour
 
     void ResetBooks()
     {
-        foreach (Book book in books)
+        for(int i=0; i<books.Length; i++)
         {
-            book.Restore();
+            books[i].Restore(i < roundWords);
         }
     }
 
@@ -198,7 +201,17 @@ public class GameController : MonoBehaviour
 
     void EndGame()
     {
+        roundEndClouds.SetActive(true);
         resultsScreen.SetActive(true);
+        if(History[resultsScreenIndex].TotalNumberOfWordsFound() >= roundWords)
+        {
+            resultsScreen.GetComponent<SpriteRenderer>().sprite = winSprite;
+        }
+        else
+        {
+            resultsScreen.GetComponent<SpriteRenderer>().sprite = loseSprite;
+            round = 0;
+        }
 
         // enable / disable navigation buttons
         if (resultsScreenIndex == 0)
