@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
         roundStartText.text = "Round " + round + "\nMake " + roundWords + " Words!";
         // fade message (and particle effect)
 
-        InvokeRepeating("TimerTick", 10, 1);
+        InvokeRepeating("TimerTick", 8, 1);
     }
 
     public void ValidateWord(string word, int potionCount)
@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour
         cauldron.Clear();   // TODO: depending on how we animate, we may need to create a separate function here
         ResetBooks();
         ResetPotions();
-        lettersInPlay.Clear();  // TODO: we'll need to save this first somehow, yeah?
+        lettersInPlay.Clear();
     }
 
     void ResetPotions()
@@ -188,7 +188,6 @@ public class GameController : MonoBehaviour
         if (timer <= 0)
         {
             CancelInvoke("TimerTick");
-            //SceneManager.LoadScene("Menu");
             resultsScreenIndex = 0;
             EndGame();
         }
