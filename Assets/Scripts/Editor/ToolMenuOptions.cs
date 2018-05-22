@@ -23,7 +23,6 @@ public class ToolMenuOptions {
         Debug.Log("<color=blue>Generating Letter Collection Database...</color>");
         /* Load the full list of words */
         List<string> wordList = LoadAllWords();
-        //string[] wordList = IOHelper<string>.LoadTextFile(Application.dataPath + WORD_LIST_PATH, Environment.NewLine);
         Debug.Log(wordList.Count + " words loaded");
 
         /* Save this list of words as the grade level list */
@@ -96,6 +95,7 @@ public class ToolMenuOptions {
         {
             wordList.AddRange(IOHelper<string>.LoadTextFile(path, Environment.NewLine));
         }
+        Debug.Log(wordList.Count + " words loaded");
 
         /* Remove any words that have illegal characters */
         int numRemoved = 0;
@@ -111,13 +111,15 @@ public class ToolMenuOptions {
                 }
             }
         }
-        Debug.Log("Removed " + numRemoved + " words containing illegal characters");
+        int count = wordList.Count;
+        Debug.Log("Removed " + numRemoved + " words containing illegal characters (" + count + " words left)");
 
         /* Sort the list of words alphabetically */
         wordList.Sort();
 
         /* Remove duplicates */
         wordList = wordList.Distinct().ToList();
+        Debug.Log((count - wordList.Count) + " duplicate words removed (" + wordList.Count + " words left)");
 
         return wordList;
     }
