@@ -9,30 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1389552872363974}
+  m_RootGameObject: {fileID: 1523377458201846}
   m_IsPrefabParent: 1
---- !u!1 &1389552872363974
+--- !u!1 &1523377458201846
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4060560646296012}
-  - component: {fileID: 82455400483079672}
+  - component: {fileID: 4385824112028418}
+  - component: {fileID: 114708848082325548}
+  - component: {fileID: 82187407646166016}
   m_Layer: 0
-  m_Name: Background Audio
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4060560646296012
+--- !u!4 &4385824112028418
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1389552872363974}
+  m_GameObject: {fileID: 1523377458201846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82455400483079672
+--- !u!82 &82187407646166016
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1389552872363974}
+  m_GameObject: {fileID: 1523377458201846}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243763308390896200, guid: 133e9db6d8a9c7e4b9c97f1efd705865,
+  OutputAudioMixerGroup: {fileID: 243234120652910544, guid: 133e9db6d8a9c7e4b9c97f1efd705865,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: ba1b31acdeaeba74fa8d089fee67b7f2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -121,3 +122,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114708848082325548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523377458201846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4223246c968a45d42820efa6f46e8418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionThrow: {fileID: 8300000, guid: 95f928b5d8c0fb3489b1afa280895273, type: 3}
+  potionBreak: {fileID: 8300000, guid: 884c5646cb43edf48bff13cbef7a3bf3, type: 3}
