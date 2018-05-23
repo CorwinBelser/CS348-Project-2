@@ -13,8 +13,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text timerText;
     [SerializeField] private Text roundStartText;
     [SerializeField] private GameObject resultsScreen;
-    [SerializeField] private Text foundWords;
-    [SerializeField] private Text missedWords;
+    [SerializeField] private Text foundWords1;
+    [SerializeField] private Text foundWords2;
+    [SerializeField] private Text missedWords1;
+    [SerializeField] private Text missedWords2;
     [SerializeField] private Button nextPageButton;
     [SerializeField] private Button lastPageButton;
     private List<string> lettersInPlay = new List<string>();
@@ -223,7 +225,7 @@ public class GameController : MonoBehaviour
         roundEndClouds.SetActive(true);
         yield return new WaitForSeconds(2);
         resultsScreen.SetActive(true);
-        if(History[resultsScreenIndex].TotalNumberOfWordsFound() >= roundWords)
+        if(History[History.Count - 1].TotalNumberOfWordsFound() >= roundWords)
         {
             resultsScreen.GetComponent<SpriteRenderer>().sprite = winSprite;
         }
@@ -234,27 +236,56 @@ public class GameController : MonoBehaviour
         }
 
         // enable / disable navigation buttons
-        if (resultsScreenIndex == 0)
-            lastPageButton.interactable = false;
-        else
-            lastPageButton.interactable = true;
-        if (resultsScreenIndex == History.Count - 1)
-            nextPageButton.interactable = false;
-        else
-            nextPageButton.interactable = true;
+        //if (resultsScreenIndex == 0)
+        //    lastPageButton.interactable = false;
+        //else
+        //    lastPageButton.interactable = true;
+        //if (resultsScreenIndex == History.Count - 1)
+        //    nextPageButton.interactable = false;
+        //else
+        //    nextPageButton.interactable = true;
 
         // reset text
-        foundWords.text = "FOUND WORDS";
-        missedWords.text = "MISSED WORDS";
-        
-        // display word lists
-        foreach (string foundWord in History[resultsScreenIndex].GetAllFoundWords())
+        foundWords1.text = "";
+        foundWords2.text = "";
+        missedWords1.text = "";
+        missedWords2.text = "";
+
+        // display word lists. if > 32 words are found, the rest will be auto-truncated
+        int found = 0, missed = 0;
+        foreach (string foundWord in History[History.Count - 1].GetAllFoundWords())
         {
-            foundWords.text = foundWords.text + "\n" + foundWord;
+            found++;
+            if (found <= 16)
+                foundWords1.text = foundWords1.text + "\n" + foundWord;
+            else
+                foundWords2.text = foundWords2.text + "\n" + foundWord;
         }
-        foreach (string missedWord in History[resultsScreenIndex].GetMissedGradeLevelWords())
+
+        // this hot garbage shuffles the missed words so we don't always get just the A's,
+            // then resorts the selected sub-list afterwards
+        List<string> missedWords = History[History.Count - 1].GetMissedGradeLevelWords();
+        if (missedWords.Count > 32)
         {
-            missedWords.text = missedWords.text + "\n" + missedWord;
+            // it's either this or write a new static class to put the extension in
+            for (int i = 0; i < missedWords.Count - 1; i++)
+            {
+                string tmp1 = missedWords[i];
+                int j = Random.Range(i, missedWords.Count - 1);
+                missedWords[i] = missedWords[j];
+                missedWords[j] = tmp1;
+            }
+            missedWords.RemoveRange(32, missedWords.Count - 32);
+            missedWords.Sort();
+        }
+
+        foreach (string missedWord in missedWords)
+        {
+            missed++;
+            if (missedWords.Count <= 16 || missed >= 16)
+                missedWords1.text = missedWords1.text + "\n" + missedWord;
+            else
+                missedWords2.text = missedWords2.text + "\n" + missedWord;
         }
     }
 
@@ -265,7 +296,6 @@ public class GameController : MonoBehaviour
         roundStartText.color = Color.Lerp(roundStartText.color, new Color(0, 0, 0, 1), fracJourney);
         if (timer > 3.5f)
         {
-            Debug.Log("doop");
             StopCoroutine(FadeInText(startTime));
             StartCoroutine(FadeOutText(Time.realtimeSinceStartup));
             yield break;
@@ -282,13 +312,13 @@ public class GameController : MonoBehaviour
        if (timer > 3.5f)
         {
             StopCoroutine(FadeOutText(startTime));
+            roundStartText.color = new Color(0, 0, 0, 0);
             yield break;
         }
         yield return new WaitForSecondsRealtime(0.05f);
         StartCoroutine(FadeOutText(startTime));
     }
-
-
+    
     public void NextPageClick()
     {
         resultsScreenIndex++;
