@@ -7,11 +7,16 @@ public class Book : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Text text;
+    private ParticleSystem sparkle;
     private bool isUsed = false;
 
     public bool Used
     { get { return isUsed; } }
 
+    void Start()
+    {
+        sparkle = GetComponent<ParticleSystem>();
+    }
 
     public void SetText(string s)
     {
@@ -24,13 +29,11 @@ public class Book : MonoBehaviour
         isUsed = false;
         text.text = "";
         if(neededToAdvance)
-        {
-            sprite.sprite = Constants.bookSprites[0];
-        }
+            sparkle.Play();
         else
-        {
-            int i = Random.Range(1, Constants.bookSprites.Length);
-            sprite.sprite = Constants.bookSprites[i];
-        }
+            sparkle.Stop();
+
+        int i = Random.Range(1, Constants.bookSprites.Length);
+        sprite.sprite = Constants.bookSprites[i];
     }
 }
