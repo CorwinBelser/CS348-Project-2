@@ -17,7 +17,8 @@ public class AudioManager : MonoBehaviour {
 
     [SerializeField] private AudioClip potionThrow;
     [SerializeField] private AudioClip potionBreak;
-    [SerializeField] private AudioClip validWord;
+    [SerializeField] private AudioClip validWordA;
+    [SerializeField] private AudioClip validWordB;
     [SerializeField] private AudioClip invalidWord;
     [SerializeField] private AudioClip reusedWord;
     private AudioSource audioSource;
@@ -49,7 +50,10 @@ public class AudioManager : MonoBehaviour {
                 audioSource.PlayOneShot(potionThrow);
                 break;
             case SoundEffects.ValidWord:
-                audioSource.PlayOneShot(validWord);
+                if (Random.Range(0f, 1f) > .5f)
+                    audioSource.PlayOneShot(validWordA);
+                else
+                    audioSource.PlayOneShot(validWordB);
                 break;
             case SoundEffects.InvalidWord:
                 audioSource.PlayOneShot(invalidWord);
