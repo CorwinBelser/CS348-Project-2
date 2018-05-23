@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     private static int round = 0;
     private int roundWords = 0;
+    private int roundMultiplier = 3;
 
     void Awake()
     {
@@ -110,7 +111,7 @@ public class GameController : MonoBehaviour
     void ResetPotions()
     {
         /* Choose a random letter selection */
-        string letterCollection = DictionaryManager.Instance.RandomLetterSelection();
+        string letterCollection = DictionaryManager.Instance.RandomLetterSelection(roundWords * roundMultiplier);
         Debug.Log("Chosen letters: " + letterCollection);
 
         GameLoopData gameData = new GameLoopData(letterCollection);

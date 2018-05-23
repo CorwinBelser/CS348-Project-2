@@ -122,4 +122,21 @@ public class DictionaryManager : MonoBehaviour {
 
         return letterCollections[indicesToChooseFrom[UnityEngine.Random.Range(0, indicesToChooseFrom.Count)]];
     }
+
+    public string RandomLetterSelection(int lowerBound)
+    {
+        List<int> indicesToChooseFrom = new List<int>();
+        for (int i = 0; i < letterCollections.Length; i++)
+        {
+            if (collectionWordCounts[i] >= lowerBound)
+                indicesToChooseFrom.Add(i);
+        }
+        if (indicesToChooseFrom.Count == 0)
+        {
+            Debug.LogWarning("Could not find a letter collection with a number of words above the given bound (" + lowerBound + "). Choosing a random letter collection.");
+            return RandomLetterSelection();
+        }
+
+        return letterCollections[indicesToChooseFrom[UnityEngine.Random.Range(0, indicesToChooseFrom.Count)]];
+    }
 }
