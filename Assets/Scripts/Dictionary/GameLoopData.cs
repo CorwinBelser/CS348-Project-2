@@ -8,6 +8,7 @@ public class GameLoopData {
     public string LetterCollection { get; private set; }
     private Dictionary<string, bool> Words;
     private List<string> bonusWords;
+    public int NumberOfWordsToFind;
 
     public GameLoopData(string letterCollection)
     {

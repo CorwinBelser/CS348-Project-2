@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        History = new List<GameLoopData>();
         StartCoroutine(StartRound(0));
     }
 
@@ -53,11 +54,26 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         resultsScreen.SetActive(false);
 
-        History = new List<GameLoopData>();
-        timer = 60;     // adjust this based on performance in previous round
-        timerText.text = timer.ToString();
         round++;
         roundWords = (5 + (int)System.Math.Floor(round / 3.0f));    // calculate # of words needed based on round
+
+        /* Choose a random letter selection */
+        string letterCollection = DictionaryManager.Instance.RandomLetterSelection(roundWords * roundMultiplier);
+        Debug.Log("Chosen letters: " + letterCollection);
+
+        GameLoopData gameData = new GameLoopData(letterCollection);
+        gameData.NumberOfWordsToFind = roundWords;
+
+        /* Set the timer's value to: (#ofWordsToFind + #extraWordsFoundLastRound) * Max(5, 10 - roundLevel) */
+        int bonusWords = 0;
+        if (History.Count > 0)
+            bonusWords = History[History.Count - 1].TotalNumberOfWordsFound() - History[History.Count - 1].NumberOfWordsToFind;
+
+        timer = (roundWords + bonusWords) * Mathf.Max(5, 11 - round);
+        timerText.text = timer.ToString();
+
+        History.Add(gameData);
+
         ResetAll();     // ResetBooks() needs to color code books appropriately
 
         // display round start message (with smoke particle effect)
@@ -120,18 +136,11 @@ public class GameController : MonoBehaviour
 
     void ResetPotions()
     {
-        /* Choose a random letter selection */
-        string letterCollection = DictionaryManager.Instance.RandomLetterSelection(roundWords * roundMultiplier);
-        Debug.Log("Chosen letters: " + letterCollection);
-
-        GameLoopData gameData = new GameLoopData(letterCollection);
-        History.Add(gameData);
-
         /* Add all letters and blends */
         int lastSingleLetterIndex = -1;
         foreach (string letters in Constants.letters)
         {
-            if (letterCollection.ContainsChars(letters))
+            if (History[History.Count - 1].LetterCollection.ContainsChars(letters))
             {
                 lettersInPlay.Add(letters);
                 if (letters.Length == 1)
