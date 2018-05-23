@@ -319,5 +319,15 @@ public class GameController : MonoBehaviour
     { Application.Quit(); }
 
     public void MenuClick()
-    { SceneManager.LoadScene("Menu"); }
+    {
+        StartCoroutine(SwitchToMainMenu());
+    }
+
+    private IEnumerator SwitchToMainMenu()
+    {
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.MenuButton);
+        roundEndClouds.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Menu");
+    }
 }

@@ -72,6 +72,7 @@ public class Cauldron : MonoBehaviour
 
     public void Undo()
     {
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.UndoButton);
         // Check that there is a letter to undo
         if (word.Length > 0)
         {

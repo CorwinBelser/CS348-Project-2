@@ -134,8 +134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionThrow: {fileID: 8300000, guid: 95f928b5d8c0fb3489b1afa280895273, type: 3}
+  potionDrink: {fileID: 8300000, guid: c851ad8dae9efab4fa5be212927c4f79, type: 3}
   potionBreak: {fileID: 8300000, guid: 884c5646cb43edf48bff13cbef7a3bf3, type: 3}
   validWordA: {fileID: 8300000, guid: 95e8bc060821b6e428a5e21b87050e98, type: 3}
   validWordB: {fileID: 8300000, guid: 546e35b8cc81bae428a8d7403cae934f, type: 3}
   invalidWord: {fileID: 8300000, guid: 2f968ce6556f85f44abc0fec3222eb8f, type: 3}
   reusedWord: {fileID: 8300000, guid: 2fc055c8c4af8d840901925a39ae9511, type: 3}
+  catMeow: {fileID: 8300000, guid: 305338e7675fded40b09f35729d7f67c, type: 3}
+  wolfHowl: {fileID: 8300000, guid: 6e0a328b937f9a54ba98cde06c5d1641, type: 3}
