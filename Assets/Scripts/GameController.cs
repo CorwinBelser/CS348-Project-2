@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     private int resultsScreenIndex;
     [SerializeField] private Sprite winSprite;
     [SerializeField] private Sprite loseSprite;
+    [SerializeField] private GameObject roundStartClouds;
     [SerializeField] private GameObject roundEndClouds;
     public List<GameLoopData> History;
 
@@ -44,15 +45,24 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        StartCoroutine(StartRound(0));
+    }
+
+    IEnumerator StartRound(float fadeTime)
+    {
+        yield return new WaitForSeconds(fadeTime);
+        resultsScreen.SetActive(false);
+
         History = new List<GameLoopData>();
         timer = 60;     // adjust this based on performance in previous round
+        timerText.text = timer.ToString();
         round++;
         roundWords = (5 + (int)System.Math.Floor(round / 3.0f));    // calculate # of words needed based on round
-        ResetAll();     // ResetBooks() needs to color code books appropriately, ResetLetters() needs to pick a collection based on # words needed
+        ResetAll();     // ResetBooks() needs to color code books appropriately
 
         // display round start message (with smoke particle effect)
         roundStartText.text = "Round " + round + "\nMake " + roundWords + " Words!";
-        // fade message (and particle effect)
+        StartCoroutine(FadeInText(Time.realtimeSinceStartup));
 
         InvokeRepeating("TimerTick", 8, 1);
     }
@@ -190,7 +200,7 @@ public class GameController : MonoBehaviour
         {
             CancelInvoke("TimerTick");
             resultsScreenIndex = 0;
-            EndGame();
+            StartCoroutine(EndGame());
         }
     }
 
@@ -199,9 +209,10 @@ public class GameController : MonoBehaviour
         timer += time;
     }
 
-    void EndGame()
+    IEnumerator EndGame()
     {
         roundEndClouds.SetActive(true);
+        yield return new WaitForSeconds(2);
         resultsScreen.SetActive(true);
         if(History[resultsScreenIndex].TotalNumberOfWordsFound() >= roundWords)
         {
@@ -238,6 +249,37 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeInText(float startTime)
+    {
+        float timer = (Time.realtimeSinceStartup - startTime);
+        float fracJourney = timer / 30f;
+        roundStartText.color = Color.Lerp(roundStartText.color, new Color(0, 0, 0, 1), fracJourney);
+        if (timer > 3.5f)
+        {
+            Debug.Log("doop");
+            StopCoroutine(FadeInText(startTime));
+            StartCoroutine(FadeOutText(Time.realtimeSinceStartup));
+            yield break;
+        }
+        yield return new WaitForSecondsRealtime(0.05f);
+        StartCoroutine(FadeInText(startTime));
+    }
+
+    private IEnumerator FadeOutText(float startTime)
+    {
+        float timer = (Time.realtimeSinceStartup - startTime);
+        float fracJourney = timer / 30f;
+        roundStartText.color = Color.Lerp(roundStartText.color, new Color(0, 0, 0, 0), fracJourney);
+       if (timer > 3.5f)
+        {
+            StopCoroutine(FadeOutText(startTime));
+            yield break;
+        }
+        yield return new WaitForSecondsRealtime(0.05f);
+        StartCoroutine(FadeOutText(startTime));
+    }
+
+
     public void NextPageClick()
     {
         resultsScreenIndex++;
@@ -251,7 +293,10 @@ public class GameController : MonoBehaviour
     }
 
     public void PlayAgainClick()
-    { SceneManager.LoadScene("Main"); }
+    {
+        roundStartClouds.SetActive(true);
+        StartCoroutine(StartRound(2));
+    }
 
     public void QuitClick()
     { Application.Quit(); }
