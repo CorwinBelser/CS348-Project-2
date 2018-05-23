@@ -17,13 +17,10 @@ public class Potion : MonoBehaviour
 
     public void Init(string s)
     {
-        //Restore();
         letter = s;
         label.text = letter;
         int i = Random.Range(0, Constants.potionSprites.Length);
         sprite.sprite = Constants.potionSprites[i];
-        //i = Random.Range(0, Constants.potionColors.Length);
-        //sprite.color = Constants.potionColors[i];
         gameObject.SetActive(true);
     }
 
@@ -31,8 +28,6 @@ public class Potion : MonoBehaviour
     {
         Potion flyingPotion = Instantiate(gameObject,gameObject.transform.parent).GetComponent<Potion>();
         flyingPotion.ToInfinityAndBeyond(letter);
-        //if (animationCR == null)
-        //    animationCR = StartCoroutine(MoveToCauldron());
     }
 
     public void ToInfinityAndBeyond(string s)
@@ -41,17 +36,17 @@ public class Potion : MonoBehaviour
         StartCoroutine(MoveToCauldron());
     }
 
-    public void Restore()   // "Reset" is a protected keyword
-    {
-        //if (animationCR != null)
-        //{
-        //    StopCoroutine(animationCR);
-        //    animationCR = null;
-        //}
-        transform.position = startPosition;
-        transform.rotation = Quaternion.identity;
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
-    }
+    //public void Restore()   // "Reset" is a protected keyword
+    //{
+    //    //if (animationCR != null)
+    //    //{
+    //    //    StopCoroutine(animationCR);
+    //    //    animationCR = null;
+    //    //}
+    //    transform.position = startPosition;
+    //    transform.rotation = Quaternion.identity;
+    //    sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
+    //}
 
     void Awake()
     {
@@ -75,32 +70,7 @@ public class Potion : MonoBehaviour
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.PotionBreak);
         /* The potion is now at the cauldron */
         cauldron.AddPotion(this);
-        //yield return new WaitForSeconds(.5f);
         /* Destroy the duplicate potion */
         Destroy(this.gameObject);
-
-        /* Trigger the return animation */
-        //animationCR = StartCoroutine(ReturnToShelf());
     }
-
-    //private IEnumerator ReturnToShelf()
-    //{
-    //    /* Kill the alpha */
-    //    Color original = sprite.color;
-    //    sprite.color = new Color(original.r, original.g, original.b, 0f);
-
-    //    /* Snap into place */
-    //    transform.position = startPosition;
-    //    transform.rotation = Quaternion.identity;
-
-    //    /* Fade the potion back in */
-    //    for (float alpha = 0f; alpha < 1f; alpha += Time.deltaTime) /* 2 seconds to reach full alpha */
-    //    {
-    //        sprite.color = new Color(original.r, original.g, original.b, alpha);
-    //        yield return null;
-    //    }
-    //    /* Snap to original color */
-    //    sprite.color = original;
-    //    animationCR = null;
-    //}
 }

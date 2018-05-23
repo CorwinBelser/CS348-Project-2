@@ -8,6 +8,8 @@ public class Cauldron : MonoBehaviour
     [SerializeField] Text label;
     private string word = "";
     private List<Potion> potionsInWord = new List<Potion>();
+    [SerializeField] private GameObject cloud;
+    private List<Cloud> clouds = new List<Cloud>();
     private GameController gameController;
     [SerializeField] private GameObject particleGameObject;
     [SerializeField] private GameObject potionArcMidpoint;
@@ -38,14 +40,29 @@ public class Cauldron : MonoBehaviour
 
     public void AddPotion(Potion potion)
     {
-        Debug.Log(potion.Letter);
         /* Increase the bubble emmision */
         emissionRate += increasePerPotion;
         UpdateBubbleEmission();
 
         potionsInWord.Add(potion);
+
+
+        AddCloud(potion.Letter);
         word += potion.Letter;
-        label.text = word;
+        //label.text = word;
+    }
+
+    private void AddCloud(string letter)
+    {
+        Cloud newCloud = Instantiate(cloud, transform).GetComponent<Cloud>();
+        clouds.Add(newCloud);
+        newCloud.Text = letter;
+        newCloud.SetState(Cloud.State.RiseFromCauldron, clouds.Count);
+
+        for(int i=0; i<clouds.Count-1; i++)
+        {
+            clouds[i].SetState(Cloud.State.SlideOver, clouds.Count);
+        }
     }
 
     void OnMouseUp()
@@ -61,14 +78,17 @@ public class Cauldron : MonoBehaviour
             emissionRate -= increasePerPotion;
             UpdateBubbleEmission();
 
-            // Remove last potion from stack and call Potion.Restore
-            Potion potionToRestore = potionsInWord[potionsInWord.Count - 1];
+            // Remove last potion from stack
+            Potion potionToRemove = potionsInWord[potionsInWord.Count - 1];
             potionsInWord.RemoveAt(potionsInWord.Count - 1);
-            word = word.Substring(0, word.Length - potionToRestore.Letter.Length);  // Substring is (startIndex, length)
-            label.text = word;
-            //potionToRestore.Restore();
-            //Destroy(potionToRestore.gameObject); // CB: Moved the destroy call to the potion itself, so it will already be gone by now
-        }
+            word = word.Substring(0, word.Length - potionToRemove.Letter.Length);  // Substring is (startIndex, length)
+            //label.text = word;
+
+            // Remove the last cloud
+            Cloud cloudToRemove = clouds[clouds.Count - 1];
+            clouds.RemoveAt(clouds.Count - 1);
+            Destroy(cloudToRemove.gameObject);
+            }
     }
 
     public void Clear()

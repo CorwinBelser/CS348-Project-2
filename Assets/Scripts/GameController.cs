@@ -235,16 +235,6 @@ public class GameController : MonoBehaviour
             round = 0;
         }
 
-        // enable / disable navigation buttons
-        //if (resultsScreenIndex == 0)
-        //    lastPageButton.interactable = false;
-        //else
-        //    lastPageButton.interactable = true;
-        //if (resultsScreenIndex == History.Count - 1)
-        //    nextPageButton.interactable = false;
-        //else
-        //    nextPageButton.interactable = true;
-
         // reset text
         foundWords1.text = "";
         foundWords2.text = "";
@@ -318,18 +308,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.05f);
         StartCoroutine(FadeOutText(startTime));
     }
-    
-    //public void NextPageClick()
-    //{
-    //    resultsScreenIndex++;
-    //    EndGame();
-    //}
-
-    //public void LastPageClick()
-    //{
-    //    resultsScreenIndex--;
-    //    EndGame();
-    //}
 
     public void PlayAgainClick()
     {
