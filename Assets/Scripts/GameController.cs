@@ -319,17 +319,17 @@ public class GameController : MonoBehaviour
         StartCoroutine(FadeOutText(startTime));
     }
     
-    public void NextPageClick()
-    {
-        resultsScreenIndex++;
-        EndGame();
-    }
+    //public void NextPageClick()
+    //{
+    //    resultsScreenIndex++;
+    //    EndGame();
+    //}
 
-    public void LastPageClick()
-    {
-        resultsScreenIndex--;
-        EndGame();
-    }
+    //public void LastPageClick()
+    //{
+    //    resultsScreenIndex--;
+    //    EndGame();
+    //}
 
     public void PlayAgainClick()
     {

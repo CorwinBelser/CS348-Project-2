@@ -17,19 +17,19 @@ public class Potion : MonoBehaviour
 
     public void Init(string s)
     {
-        Restore();
+        //Restore();
         letter = s;
         label.text = letter;
         int i = Random.Range(0, Constants.potionSprites.Length);
         sprite.sprite = Constants.potionSprites[i];
-        i = Random.Range(0, Constants.potionColors.Length);
-        sprite.color = Constants.potionColors[i];
+        //i = Random.Range(0, Constants.potionColors.Length);
+        //sprite.color = Constants.potionColors[i];
         gameObject.SetActive(true);
     }
 
     private void OnMouseUp()
     {
-        Potion flyingPotion = Instantiate(this.gameObject).GetComponent<Potion>();
+        Potion flyingPotion = Instantiate(gameObject,gameObject.transform.parent).GetComponent<Potion>();
         flyingPotion.ToInfinityAndBeyond(letter);
         //if (animationCR == null)
         //    animationCR = StartCoroutine(MoveToCauldron());
