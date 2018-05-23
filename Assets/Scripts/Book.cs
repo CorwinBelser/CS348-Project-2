@@ -33,7 +33,7 @@ public class Book : MonoBehaviour
         else
             sparkle.Stop();
 
-        int i = Random.Range(1, Constants.bookSprites.Length);
+        int i = Random.Range(0, Constants.bookSprites.Length);
         sprite.sprite = Constants.bookSprites[i];
     }
 }

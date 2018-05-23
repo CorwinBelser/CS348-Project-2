@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
         InvokeRepeating("TimerTick", 8, 1);
     }
 
-    public void ValidateWord(string word, int potionCount)
+    public IEnumerator ValidateWord(string word, int potionCount)
     {
         if (!History[History.Count - 1].IsWordFound(word))   // first check if word has already been created
         {
@@ -99,12 +99,13 @@ public class GameController : MonoBehaviour
                 AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.ValidWord);
                 /* Add the found word to the history */
                 History[History.Count - 1].AddFoundWord(word);
-                AddWordToBook(word);
+                StartCoroutine(AddWordToBook(word));
                 // add extra time for creating long words and using blends
                 if (word.Length >= 4)
                 {
                     AddTime(word.Length + word.Length - potionCount);
                 }
+                yield return new WaitForSeconds(0.75f);
                 cauldron.Clear();
             }
             else
@@ -113,6 +114,7 @@ public class GameController : MonoBehaviour
                 //TODO: animate cauldron exploding
                 /* Play the invalidWord sound effect */
                 AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.InvalidWord);
+                yield return null;
                 cauldron.Clear();
             }
         }
@@ -122,6 +124,7 @@ public class GameController : MonoBehaviour
             //TODO: animate cauldron exploding
             /* Play the reusedWord sound effect */
             AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.ReusedWord);
+            yield return null;
             cauldron.Clear();
         }
     }
@@ -190,13 +193,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddWordToBook(string word)
+    public IEnumerator AddWordToBook(string word)
     {
         /* Add the word to a free book */
         foreach (Book book in books)
         {
             if (!book.Used)
             {
+                cauldron.SendCloudsToBook(book.transform.position);
+                yield return new WaitForSeconds(0.75f);
                 book.SetText(word);
                 break;
             }

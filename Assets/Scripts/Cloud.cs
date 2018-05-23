@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Cloud : MonoBehaviour
 {
     // cloud behaves as a state machine
-    public enum State { RiseFromCauldron, Bob, SlideOver, MoveToBook };
+    public enum State { RiseFromCauldron, Bob, SlideOver, SlideBack, MoveToBook };
 
     [SerializeField] private float width;
     [SerializeField] private float speed;
@@ -39,8 +39,13 @@ public class Cloud : MonoBehaviour
             case (State.SlideOver):
                 targetPosition = new Vector2(transform.position.x - (0.5f * width), transform.position.y);
                 break;
+            case (State.SlideBack):
+                targetPosition = new Vector2(transform.position.x + (0.5f * width), transform.position.y);
+                break;
             case (State.MoveToBook):
-
+                // targetPosition set manually in this case
+                break;
+            default:
                 break;
         }
         state = newState;
@@ -55,18 +60,18 @@ public class Cloud : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
                 break;
             case (State.Bob):
-
+                // random bobbing movement
                 break;
             case (State.SlideOver):
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
                 break;
+            case (State.SlideBack):
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
+                break;
             case (State.MoveToBook):
-
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 10f);
+                transform.localScale = transform.localScale * 0.98f;
                 break;
         }
-        // random bobbing movement
-
-        // move to book and destroy
     }
-
 }
