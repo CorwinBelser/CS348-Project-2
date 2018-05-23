@@ -318,6 +318,12 @@ public class GameController : MonoBehaviour
     public void QuitClick()
     { Application.Quit(); }
 
+    public void UndoClick()
+    {
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.UndoButton);
+        cauldron.Undo();
+    }
+
     public void MenuClick()
     {
         StartCoroutine(SwitchToMainMenu());
