@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
         /* Set the timer's value to: (#ofWordsToFind + #extraWordsFoundLastRound) * Max(5, 10 - roundLevel) */
         int bonusWords = 0;
         if (History.Count > 0)
-            bonusWords = History[History.Count - 1].TotalNumberOfWordsFound() - History[History.Count - 1].NumberOfWordsToFind;
+            bonusWords = Mathf.Max(History[History.Count - 1].TotalNumberOfWordsFound() - History[History.Count - 1].NumberOfWordsToFind, 0);
 
         timer = (roundWords + bonusWords) * Mathf.Max(5, 11 - round);
         timerText.text = timer.ToString();
