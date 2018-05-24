@@ -69,7 +69,7 @@ public class Potion : MonoBehaviour
         {
             if (animationNumber == 0 && Random.Range(0f, 1f) <= animationTriggerChance)
             {
-                animationNumber = Random.Range(1, 3);
+                animationNumber = Random.Range(1, 4);
                 animator.SetInteger("animationNumber", animationNumber);
                 yield return new WaitForSeconds(2f);
                 animationNumber = 0;
