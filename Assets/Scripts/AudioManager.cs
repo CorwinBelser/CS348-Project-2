@@ -14,7 +14,8 @@ public class AudioManager : MonoBehaviour {
         InvalidWord,
         ReusedWord,
         UndoButton,
-        MenuButton
+        MenuButton,
+        SmokeBlowing
     }
 
     [SerializeField] private AudioClip potionThrow;
@@ -26,6 +27,7 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] private AudioClip reusedWord;
     [SerializeField] private AudioClip catMeow;
     [SerializeField] private AudioClip wolfHowl;
+    [SerializeField] private AudioClip smokeBlowing;
     private AudioSource audioSource;
 
     void Awake()
@@ -49,10 +51,8 @@ public class AudioManager : MonoBehaviour {
         switch (effect)
         {
             case SoundEffects.PotionBreak:
-                if (Random.Range(0f, 1f) > .5f)
-                    audioSource.PlayOneShot(potionBreak);
-                else
-                    audioSource.PlayOneShot(potionDrink);
+                audioSource.PlayOneShot(potionBreak);
+                audioSource.PlayOneShot(potionDrink);
                 break;
             case SoundEffects.PotionThrow:
                 audioSource.PlayOneShot(potionThrow);
@@ -74,6 +74,9 @@ public class AudioManager : MonoBehaviour {
                 break;
             case SoundEffects.UndoButton:
                 audioSource.PlayOneShot(catMeow);
+                break;
+            case SoundEffects.SmokeBlowing:
+                audioSource.PlayOneShot(smokeBlowing);
                 break;
         }
     }

@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator StartRound(float fadeTime)
     {
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowing);
         yield return new WaitForSeconds(fadeTime);
         resultsScreen.SetActive(false);
 
@@ -227,6 +228,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator EndGame()
     {
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowing);
         roundEndClouds.SetActive(true);
         yield return new WaitForSeconds(2);
         resultsScreen.SetActive(true);
