@@ -21,13 +21,14 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] private AudioClip potionThrow;
     [SerializeField] private AudioClip potionDrink;
     [SerializeField] private AudioClip potionBreak;
-    [SerializeField] private AudioClip validWordA;
-    [SerializeField] private AudioClip validWordB;
+    [SerializeField] private AudioClip witchCackleA;
+    [SerializeField] private AudioClip witchCackleB;
     [SerializeField] private AudioClip invalidWord;
     [SerializeField] private AudioClip reusedWord;
     [SerializeField] private AudioClip catMeow;
     [SerializeField] private AudioClip wolfHowl;
     [SerializeField] private AudioClip smokeBlowing;
+    [SerializeField] private AudioClip validWord;
     private AudioSource audioSource;
 
     void Awake()
@@ -58,10 +59,7 @@ public class AudioManager : MonoBehaviour {
                 audioSource.PlayOneShot(potionThrow);
                 break;
             case SoundEffects.ValidWord:
-                if (Random.Range(0f, 1f) > .5f)
-                    audioSource.PlayOneShot(validWordA);
-                else
-                    audioSource.PlayOneShot(validWordB);
+                audioSource.PlayOneShot(validWord);
                 break;
             case SoundEffects.InvalidWord:
                 audioSource.PlayOneShot(invalidWord);
