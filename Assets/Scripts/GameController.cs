@@ -343,6 +343,10 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.MenuButton);
         roundEndClouds.SetActive(true);
         yield return new WaitForSeconds(2f);
+
+        /* Clear out round and history information */
+        round = 0;
+        History.Clear();
         SceneManager.LoadScene("Menu");
     }
 }
