@@ -45,11 +45,8 @@ public class Cauldron : MonoBehaviour
         UpdateBubbleEmission();
 
         potionsInWord.Add(potion);
-
-
         AddCloud(potion.Letter);
         word += potion.Letter;
-        //label.text = word;
     }
 
     private void AddCloud(string letter)
@@ -65,9 +62,18 @@ public class Cauldron : MonoBehaviour
         }
     }
 
+    public void SendCloudsToBook(Vector2 bookPosition)
+    {
+        foreach(Cloud cloud in clouds)
+        {
+            cloud.SetState(Cloud.State.MoveToBook, clouds.Count);
+            cloud.TargetPosition = bookPosition;
+        }
+    }
+
     void OnMouseUp()
     {
-        gameController.ValidateWord(word, potionsInWord.Count);
+        StartCoroutine(gameController.ValidateWord(word, potionsInWord.Count));
     }
 
     public void Undo()
@@ -82,13 +88,17 @@ public class Cauldron : MonoBehaviour
             Potion potionToRemove = potionsInWord[potionsInWord.Count - 1];
             potionsInWord.RemoveAt(potionsInWord.Count - 1);
             word = word.Substring(0, word.Length - potionToRemove.Letter.Length);  // Substring is (startIndex, length)
-            //label.text = word;
 
             // Remove the last cloud
             Cloud cloudToRemove = clouds[clouds.Count - 1];
             clouds.RemoveAt(clouds.Count - 1);
             Destroy(cloudToRemove.gameObject);
+
+            foreach(Cloud cloud in clouds)
+            {
+                cloud.SetState(Cloud.State.SlideBack, clouds.Count);
             }
+        }
     }
 
     public void Clear()
