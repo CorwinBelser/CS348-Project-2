@@ -8314,8 +8314,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1175469791}
-        m_MethodName: Undo
+      - m_Target: {fileID: 795475603}
+        m_MethodName: UndoClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10233,6 +10233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2020579209}
   - component: {fileID: 2020579210}
+  - component: {fileID: 2020579211}
   m_Layer: 0
   m_Name: timeOrbHighlight
   m_TagString: Untagged
@@ -10297,6 +10298,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!95 &2020579211
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2020579208}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2286e8055036c1b4794fe3b724c30f51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &2085462492
 GameObject:
   m_ObjectHideFlags: 0
