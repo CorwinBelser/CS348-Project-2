@@ -10,7 +10,10 @@ public class Potion : MonoBehaviour
     [SerializeField] private Text label;
     private string letter = "";
     private Vector2 startPosition;
-    private Coroutine animationCR;
+    private Animator animator;
+    private int animationNumber;
+    private float animationTriggerChance = 0.05f; /* Chance per second to trigger a random potion animation */
+    private bool playAnimations = true;
 
     public string Letter
     { get { return letter; } }
@@ -51,10 +54,37 @@ public class Potion : MonoBehaviour
     void Awake()
     {
         startPosition = transform.position;
+        animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        animationNumber = 0;
+        StartCoroutine(RandomPotionAnimations());
+    }
+
+    private IEnumerator RandomPotionAnimations()
+    {
+        while (playAnimations)
+        {
+            if (animationNumber == 0 && Random.Range(0f, 1f) <= animationTriggerChance)
+            {
+                animationNumber = Random.Range(1, 3);
+                animator.SetInteger("animationNumber", animationNumber);
+                yield return new WaitForSeconds(2f);
+                animationNumber = 0;
+            }
+            else
+                yield return new WaitForSeconds(Random.Range(1f, 2f));
+        }
     }
 
     private IEnumerator MoveToCauldron()
     {
+        /* Turn off animations, as this is a throwing potion */
+        playAnimations = false;
+        animator.Rebind();
+        animator.enabled = false;
         /* Trigger a throw sound effect */
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.PotionThrow);
         Vector2 destination = cauldron.gameObject.transform.position;
