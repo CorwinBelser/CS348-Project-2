@@ -24,7 +24,7 @@ public class Potion : MonoBehaviour
         label.text = letter;
         int i = Random.Range(0, Constants.potionSprites.Length);
         sprite.sprite = Constants.potionSprites[i];
-        gameObject.SetActive(true);
+        gameObject.transform.parent.gameObject.SetActive(true);
     }
 
     private void OnMouseUp()

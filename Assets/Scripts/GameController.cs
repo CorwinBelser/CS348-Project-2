@@ -183,8 +183,7 @@ public class GameController : MonoBehaviour
         // turn off excess potions
         for (int i=lettersInPlay.Count; i<potions.Length; i++)
         {
-            potions[i].Init("");
-            potions[i].gameObject.SetActive(false);
+            potions[i].gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
 

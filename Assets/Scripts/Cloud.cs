@@ -80,7 +80,7 @@ public class Cloud : MonoBehaviour
                 transform.localScale = transform.localScale * 0.98f;
                 break;
         }
-        if (IsWithin(transform.position, targetPosition))
+        if (state != State.MoveToBook && IsWithin(transform.position, targetPosition))
             SetState(State.Bob, 0);
     }
 
