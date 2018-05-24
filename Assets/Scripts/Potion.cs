@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Potion : MonoBehaviour
@@ -29,6 +30,8 @@ public class Potion : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (GameController.Instance.IsMenuOpen)
+            return;
         Potion flyingPotion = Instantiate(gameObject,gameObject.transform.parent).GetComponent<Potion>();
         flyingPotion.ToInfinityAndBeyond(letter);
     }
