@@ -11,6 +11,7 @@ public class Cloud : MonoBehaviour
     [SerializeField] private float width;
     [SerializeField] private float speed;
     [SerializeField] private Text text;
+    [SerializeField] private SpriteRenderer sprite;
     private Vector2 targetPosition;
     private Vector2 cauldronPosition;
     private State state;
@@ -24,6 +25,8 @@ public class Cloud : MonoBehaviour
     void Awake()
     {
         cauldronPosition = transform.parent.transform.position;
+        int i = Random.Range(0, Constants.cloudSprites.Length);
+        sprite.sprite = Constants.cloudSprites[i];
     }
 
     public void SetState(State newState, int totalClouds)
@@ -57,19 +60,19 @@ public class Cloud : MonoBehaviour
         switch(state)
         {
             case (State.RiseFromCauldron):
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
                 break;
             case (State.Bob):
                 // random bobbing movement
                 break;
             case (State.SlideOver):
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
                 break;
             case (State.SlideBack):
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 20f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
                 break;
             case (State.MoveToBook):
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 10f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed/2.0f);
                 transform.localScale = transform.localScale * 0.98f;
                 break;
         }

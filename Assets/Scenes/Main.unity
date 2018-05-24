@@ -2179,7 +2179,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.03
+      value: -2.11
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2640,11 +2640,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 513032648}
-    - target: {fileID: 114057345929807362, guid: a109128cbfd6aac459120af1c0c5165b,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a109128cbfd6aac459120af1c0c5165b, type: 2}
   m_IsPrefabParent: 0
@@ -2788,6 +2783,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e7f4c52354c39f54890f77f7f656d96e, type: 3}
   - {fileID: 21300000, guid: 6f991dcf51f39bb4eb2d98f58b036450, type: 3}
   - {fileID: 21300000, guid: 4eb1c3b8fae45b349bce5c088b9aaabc, type: 3}
+  serializedCloudSprites:
+  - {fileID: 21300000, guid: 02e4ad56bdc3b274980a06dc5d028681, type: 3}
+  - {fileID: 21300000, guid: 2b0d109df8a29df469e4a453b68574b1, type: 3}
+  - {fileID: 21300000, guid: dcaa00585f87fb54e8d65f9066091144, type: 3}
+  - {fileID: 21300000, guid: 49888657e967bf342bb0267df96bdf03, type: 3}
+  - {fileID: 21300000, guid: a9e154f7414349148891f5cc6baf1f43, type: 3}
 --- !u!114 &795475605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3416,7 +3417,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.03
+      value: -2.31
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8810,7 +8811,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.03
+      value: -2.31
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.z
@@ -9575,7 +9576,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.16
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4103785061613632, guid: 805551f3a78bbf943b20f24a20466620, type: 2}
       propertyPath: m_LocalPosition.z
