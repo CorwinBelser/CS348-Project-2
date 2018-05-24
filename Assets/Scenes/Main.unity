@@ -2373,7 +2373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4871389250889502, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4871389250889502, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2398,45 +2398,6 @@ Prefab:
     - target: {fileID: 4871389250889502, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: randomSeed
-      value: -899651119
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: lengthInSec
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: stopAction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1038851984455184, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: InitialModule.randomizeRotationDirection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: TrailModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198486295331359950, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4,
-        type: 2}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f1e807bb97e3cc48b78e6ec98af9cc4, type: 2}
