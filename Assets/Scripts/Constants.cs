@@ -8,6 +8,8 @@ public class Constants : MonoBehaviour
     public static Sprite[] potionSprites;   // your move, Unity
     [SerializeField] private Sprite[] serializedBookSprites;
     public static Sprite[] bookSprites;
+    [SerializeField] private Sprite[] serializedCloudSprites;
+    public static Sprite[] cloudSprites;
     public static string[] letters = new string[] {
         "A", "E", "I", "O", "U",         //vowels, ind 0-4 
         "B", "C", "D", "F", "G", "H", "G", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z",    // consonants, ind 5-25
@@ -22,5 +24,6 @@ public class Constants : MonoBehaviour
     {
         potionSprites = serializedPotionSprites;
         bookSprites = serializedBookSprites;
+        cloudSprites = serializedCloudSprites;
     }
 }
