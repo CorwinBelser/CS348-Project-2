@@ -16,6 +16,8 @@ public class Cauldron : MonoBehaviour
     private ParticleSystem bubbleParticle;
     private float emissionRate;
     private float increasePerPotion = 2f;
+    [SerializeField] SpriteRenderer currentSprite;
+    [SerializeField] Sprite[] sprites;
 
     public static Cauldron Instance { get; private set; }
 
@@ -36,17 +38,19 @@ public class Cauldron : MonoBehaviour
         bubbleParticle = particleGameObject.GetComponent<ParticleSystem>();
         emissionRate = 1f;
         UpdateBubbleEmission();
+        UpdateSprite();
     }
 
     public void AddPotion(Potion potion)
     {
-        /* Increase the bubble emmision */
-        emissionRate += increasePerPotion;
-        UpdateBubbleEmission();
-
         potionsInWord.Add(potion);
         AddCloud(potion.Letter);
         word += potion.Letter;
+
+        /* Increase the bubble emmision */
+        emissionRate += increasePerPotion;
+        UpdateBubbleEmission();
+        UpdateSprite();
     }
 
     private void AddCloud(string letter)
@@ -64,7 +68,7 @@ public class Cauldron : MonoBehaviour
 
     public void SendCloudsToBook(Vector2 bookPosition)
     {
-        foreach(Cloud cloud in clouds)
+        foreach (Cloud cloud in clouds)
         {
             cloud.SetState(Cloud.State.MoveToBook, clouds.Count);
             cloud.TargetPosition = bookPosition;
@@ -81,9 +85,6 @@ public class Cauldron : MonoBehaviour
         // Check that there is a letter to undo
         if (word.Length > 0)
         {
-            emissionRate -= increasePerPotion;
-            UpdateBubbleEmission();
-
             // Remove last potion from stack
             Potion potionToRemove = potionsInWord[potionsInWord.Count - 1];
             potionsInWord.RemoveAt(potionsInWord.Count - 1);
@@ -98,6 +99,10 @@ public class Cauldron : MonoBehaviour
             {
                 cloud.SetState(Cloud.State.SlideBack, clouds.Count);
             }
+
+            emissionRate -= increasePerPotion;
+            UpdateBubbleEmission();
+            UpdateSprite();
         }
     }
 
@@ -113,6 +118,18 @@ public class Cauldron : MonoBehaviour
     {
         ParticleSystem.EmissionModule emission = bubbleParticle.emission;
         emission.rateOverTime = emissionRate;
+    }
+
+    private void UpdateSprite()
+    {
+        int index = potionsInWord.Count;
+        if (index > 5) index = 5;
+        currentSprite.sprite = sprites[index];
+    }
+
+    public void InstantUpdateSprite()
+    {
+        currentSprite.sprite = sprites[0];
     }
 
     public Vector2 GetPotionArcMidpoint()

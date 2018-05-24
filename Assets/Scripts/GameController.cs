@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text missedWords2;
     private List<string> lettersInPlay = new List<string>();
     private int timer;
-    private int resultsScreenIndex;
     [SerializeField] private Sprite winSprite;
     [SerializeField] private Sprite loseSprite;
     [SerializeField] private Sprite nextSprite;
@@ -107,6 +106,7 @@ public class GameController : MonoBehaviour
                 {
                     AddTime(word.Length + word.Length - potionCount);
                 }
+                cauldron.InstantUpdateSprite();
                 yield return new WaitForSeconds(0.75f);
                 cauldron.Clear();
             }
@@ -217,7 +217,6 @@ public class GameController : MonoBehaviour
         if (timer <= 0)
         {
             CancelInvoke("TimerTick");
-            resultsScreenIndex = 0;
             StartCoroutine(EndGame());
         }
     }
