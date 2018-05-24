@@ -10,11 +10,13 @@ public class Cloud : MonoBehaviour
 
     [SerializeField] private float width;
     [SerializeField] private float speed;
+    [SerializeField] private float amplitude;
     [SerializeField] private Text text;
     [SerializeField] private SpriteRenderer sprite;
     private Vector2 targetPosition;
     private Vector2 cauldronPosition;
     private State state;
+    private float randomBobStart = 0;
 
     public string Text
     { set { text.text = value; } }
@@ -27,6 +29,7 @@ public class Cloud : MonoBehaviour
         cauldronPosition = transform.parent.transform.position;
         int i = Random.Range(0, Constants.cloudSprites.Length);
         sprite.sprite = Constants.cloudSprites[i];
+        randomBobStart = Random.Range(0, 10.0f);
     }
 
     public void SetState(State newState, int totalClouds)
@@ -37,7 +40,7 @@ public class Cloud : MonoBehaviour
                 targetPosition = new Vector2((0.5f * width) * (totalClouds - 1), 2.5f) + cauldronPosition;
                 break;
             case (State.Bob):
-
+                // targetPosition recalculated each frame
                 break;
             case (State.SlideOver):
                 targetPosition = new Vector2(transform.position.x - (0.5f * width), transform.position.y);
@@ -63,7 +66,8 @@ public class Cloud : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
                 break;
             case (State.Bob):
-                // random bobbing movement
+                float newY = 0.25f * Mathf.Sin(Time.time * 0.5f + randomBobStart);
+                transform.position = new Vector3(transform.position.x, newY);// + transform.position.y);
                 break;
             case (State.SlideOver):
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
@@ -76,5 +80,17 @@ public class Cloud : MonoBehaviour
                 transform.localScale = transform.localScale * 0.98f;
                 break;
         }
+        if (IsWithin(transform.position, targetPosition))
+            SetState(State.Bob, 0);
     }
+
+
+    private bool IsWithin(Vector3 obj1, Vector3 obj2)
+    {
+        float tolerance = 0.05f;
+        if ((Mathf.Abs(obj1.x - obj2.x) < tolerance) && (Mathf.Abs(obj1.y - obj2.y) < tolerance))
+            return true;
+        else
+            return false;
+    } 
 }

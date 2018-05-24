@@ -17,13 +17,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text foundWords2;
     [SerializeField] private Text missedWords1;
     [SerializeField] private Text missedWords2;
-    [SerializeField] private Button nextPageButton;
-    [SerializeField] private Button lastPageButton;
     private List<string> lettersInPlay = new List<string>();
     private int timer;
     private int resultsScreenIndex;
     [SerializeField] private Sprite winSprite;
     [SerializeField] private Sprite loseSprite;
+    [SerializeField] private Sprite nextSprite;
+    [SerializeField] private Sprite replaySprite;
+    [SerializeField] private Image arrowButton;
     [SerializeField] private GameObject roundStartClouds;
     [SerializeField] private GameObject roundEndClouds;
     public List<GameLoopData> History;
@@ -77,7 +78,7 @@ public class GameController : MonoBehaviour
 
         History.Add(gameData);
 
-        ResetAll();     // ResetBooks() needs to color code books appropriately
+        ResetAll();
 
         // display round start message (with smoke particle effect)
         roundStartText.text = "Round " + round + "\nMake " + roundWords + " Words!";
@@ -182,6 +183,7 @@ public class GameController : MonoBehaviour
         // turn off excess potions
         for (int i=lettersInPlay.Count; i<potions.Length; i++)
         {
+            potions[i].Init("");
             potions[i].gameObject.SetActive(false);
         }
     }
@@ -235,10 +237,12 @@ public class GameController : MonoBehaviour
         if(History[History.Count - 1].TotalNumberOfWordsFound() >= roundWords)
         {
             resultsScreen.GetComponent<SpriteRenderer>().sprite = winSprite;
+            arrowButton.sprite = nextSprite;
         }
         else
         {
             resultsScreen.GetComponent<SpriteRenderer>().sprite = loseSprite;
+            arrowButton.sprite = replaySprite;
             round = 0;
         }
 

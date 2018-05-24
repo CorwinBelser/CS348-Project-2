@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 1.2
   speed: 20
+  amplitude: 0.05
   text: {fileID: 114683833431933534}
   sprite: {fileID: 212583439654933350}
 --- !u!212 &212583439654933350
