@@ -15,7 +15,8 @@ public class AudioManager : MonoBehaviour {
         ReusedWord,
         UndoButton,
         MenuButton,
-        SmokeBlowing
+        SmokeBlowing,
+        SmokeBlowingShort
     }
 
     [SerializeField] private AudioClip potionThrow;
@@ -28,6 +29,7 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] private AudioClip catMeow;
     [SerializeField] private AudioClip wolfHowl;
     [SerializeField] private AudioClip smokeBlowing;
+    [SerializeField] private AudioClip smokeBlowingShort;
     [SerializeField] private AudioClip validWord;
     private AudioSource audioSource;
 
@@ -75,6 +77,9 @@ public class AudioManager : MonoBehaviour {
                 break;
             case SoundEffects.SmokeBlowing:
                 audioSource.PlayOneShot(smokeBlowing);
+                break;
+            case SoundEffects.SmokeBlowingShort:
+                audioSource.PlayOneShot(smokeBlowingShort);
                 break;
         }
     }

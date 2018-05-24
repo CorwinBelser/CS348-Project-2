@@ -228,7 +228,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator EndGame()
     {
-        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowing);
+        AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowingShort);
         roundEndClouds.SetActive(true);
         yield return new WaitForSeconds(2);
         resultsScreen.SetActive(true);

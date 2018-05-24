@@ -143,4 +143,5 @@ MonoBehaviour:
   catMeow: {fileID: 8300000, guid: 305338e7675fded40b09f35729d7f67c, type: 3}
   wolfHowl: {fileID: 8300000, guid: 6e0a328b937f9a54ba98cde06c5d1641, type: 3}
   smokeBlowing: {fileID: 8300000, guid: 4571aeb254972a148ac15cc1d81baf3d, type: 3}
+  smokeBlowingShort: {fileID: 8300000, guid: e8d11134a31946944988b76dd57e5a78, type: 3}
   validWord: {fileID: 8300000, guid: 8e5bb1d23e8f71b4ca103713fdb6580c, type: 3}
