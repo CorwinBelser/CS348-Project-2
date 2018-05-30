@@ -32,10 +32,6 @@ public class GameController : MonoBehaviour
     private static int round = 0;
     private int roundWords = 0;
     private int roundMultiplier = 3;
-    private bool endGame = false;
-
-    public bool IsMenuOpen
-    { get { return endGame; } }
 
     void Awake()
     {
@@ -232,7 +228,6 @@ public class GameController : MonoBehaviour
 
     IEnumerator EndGame()
     {
-        endGame = true;
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowingShort);
         roundEndClouds.SetActive(true);
         yield return new WaitForSeconds(2);
@@ -325,7 +320,6 @@ public class GameController : MonoBehaviour
 
     public void PlayAgainClick()
     {
-        endGame = false;
         roundStartClouds.SetActive(true);
         StartCoroutine(StartRound(2));
     }
@@ -341,7 +335,6 @@ public class GameController : MonoBehaviour
 
     public void MenuClick()
     {
-        endGame = true;
         StartCoroutine(SwitchToMainMenu());
     }
 

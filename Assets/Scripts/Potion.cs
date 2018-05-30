@@ -30,7 +30,7 @@ public class Potion : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (GameController.Instance.IsMenuOpen)
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             return;
         Potion flyingPotion = Instantiate(gameObject,gameObject.transform.parent).GetComponent<Potion>();
         flyingPotion.ToInfinityAndBeyond(letter);
