@@ -175,16 +175,31 @@ public class GameController : MonoBehaviour
             lettersInPlay[randomIndex] = temp;
         }
 
+        // create list of potion indices to choose from
+        List<int> indices = new List<int>();
+        for (int i = 0; i < potions.Length; i++)
+        {
+            indices.Add(i);
+        }
+
+        // assign letters (in order) to potions (randomly)
         for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
         {
-            potions[i].Init(lettersInPlay[i]);
+            int chosenIndex = Random.Range(0, indices.Count);
+            potions[indices[chosenIndex]].Init(lettersInPlay[i]);
+            indices.RemoveAt(chosenIndex);
         }
 
         // turn off excess potions
-        for (int i=lettersInPlay.Count; i<potions.Length; i++)
+        for(int i = 0; i<indices.Count; i++)
         {
-            potions[i].gameObject.transform.parent.gameObject.SetActive(false);
+            potions[indices[i]].gameObject.transform.parent.gameObject.SetActive(false);
         }
+
+        //for (int i=lettersInPlay.Count; i<potions.Length; i++)
+        //{
+        //    potions[i].gameObject.transform.parent.gameObject.SetActive(false);
+        //}
     }
 
     void ResetBooks()
