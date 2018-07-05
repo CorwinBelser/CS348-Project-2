@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text timerText;
     [SerializeField] private Text roundStartText;
     [SerializeField] private GameObject resultsScreen;
+    [SerializeField] private GameObject blackScreen;
     [SerializeField] private Text foundWords1;
     [SerializeField] private Text foundWords2;
     [SerializeField] private Text missedWords1;
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
     {
         AudioManager.Instance.PlayEffect(AudioManager.SoundEffects.SmokeBlowing);
         yield return new WaitForSeconds(fadeTime);
+
         resultsScreen.SetActive(false);
 
         round++;
@@ -149,7 +151,7 @@ public class GameController : MonoBehaviour
         {
             if (History[History.Count - 1].LetterCollection.ContainsChars(letters))
             {
-                lettersInPlay.Add(letters);
+                lettersInPlay.Add(letters.ToLower());
                 if (letters.Length == 1)
                     lastSingleLetterIndex++;
             }
@@ -175,31 +177,68 @@ public class GameController : MonoBehaviour
             lettersInPlay[randomIndex] = temp;
         }
 
-        // create list of potion indices to choose from
-        List<int> indices = new List<int>();
-        for (int i = 0; i < potions.Length; i++)
-        {
-            indices.Add(i);
-        }
+        //// create list of potion indices to choose from
+        //List<int> indices = new List<int>();
+        //for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
+        //{
+        //    indices.Add(i);
+        //}
 
-        // assign letters (in order) to potions (randomly)
-        for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
-        {
-            int chosenIndex = Random.Range(0, indices.Count);
-            potions[indices[chosenIndex]].Init(lettersInPlay[i]);
-            indices.RemoveAt(chosenIndex);
-        }
+        //// assign letters (in order) to potions (randomly)
+        //for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
+        //{
+        //    int chosenIndex = Random.Range(0, indices.Count);
+        //    potions[indices[chosenIndex]].Init(lettersInPlay[i]);
+        //    indices.RemoveAt(chosenIndex);
+        //}
 
         // turn off excess potions
-        for(int i = 0; i<indices.Count; i++)
+        //for(int i = 0; i<indices.Count; i++)
+        //{
+        //    potions[indices[i]].gameObject.transform.parent.gameObject.SetActive(false);
+        //}
+
+        // assign letters to potions
+        //for (int i = 0; i < Mathf.Min(potions.Length, lettersInPlay.Count); i++)
+        //{
+        //    potions[i].Init(lettersInPlay[i]);
+        //}
+
+
+        // this version does single letters followed by blends, with the blends always
+            // starting on a new shelf
+        int firstBlendPotion = ((lastSingleLetterIndex / 4) + 1) * 4;
+        int potionIndex = 0, letterIndex = 0;
+        while(potionIndex < potions.Length && letterIndex < lettersInPlay.Count)
         {
-            potions[indices[i]].gameObject.transform.parent.gameObject.SetActive(false);
+            potions[potionIndex].Init(lettersInPlay[letterIndex]);
+
+            if (letterIndex == lastSingleLetterIndex)
+                potionIndex = firstBlendPotion;
+            else
+                potionIndex++;
+            letterIndex++;
+
         }
 
-        //for (int i=lettersInPlay.Count; i<potions.Length; i++)
+
+        // turn off excess potions
+        //for (int i = lettersInPlay.Count; i < potions.Length; i++)
         //{
         //    potions[i].gameObject.transform.parent.gameObject.SetActive(false);
         //}
+
+        for (int i = lastSingleLetterIndex + 1; i < firstBlendPotion; i++)
+        {
+            potions[i].gameObject.transform.parent.gameObject.SetActive(false);
+        }
+        for (int i = potionIndex; i < potions.Length; i++)
+        {
+            potions[i].gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+
+
     }
 
     void ResetBooks()
@@ -311,6 +350,7 @@ public class GameController : MonoBehaviour
         if (timer > 3.5f)
         {
             StopCoroutine(FadeInText(startTime));
+            blackScreen.SetActive(false);
             StartCoroutine(FadeOutText(Time.realtimeSinceStartup));
             yield break;
         }
