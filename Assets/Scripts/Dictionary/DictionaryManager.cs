@@ -46,6 +46,7 @@ public class DictionaryManager : MonoBehaviour {
         else
         {
             allWords = fullList.text.Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
+            allWords = (from w in allWords select w.Trim()).ToArray();
             Debug.Log("Loaded " + allWords.Length + " words into master word list");
         }
 
@@ -59,6 +60,7 @@ public class DictionaryManager : MonoBehaviour {
         else
         {
             gradeLevelWords = gradeLevelList.text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            gradeLevelWords = (from w in gradeLevelWords select w.Trim()).ToArray();
             Debug.Log("Loaded " + gradeLevelWords.Length + " words into grade level word list");
         }
 
