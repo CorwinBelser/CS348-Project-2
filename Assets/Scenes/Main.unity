@@ -2624,7 +2624,6 @@ GameObject:
   - component: {fileID: 795475602}
   - component: {fileID: 795475603}
   - component: {fileID: 795475604}
-  - component: {fileID: 795475605}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2750,17 +2749,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dcaa00585f87fb54e8d65f9066091144, type: 3}
   - {fileID: 21300000, guid: 49888657e967bf342bb0267df96bdf03, type: 3}
   - {fileID: 21300000, guid: a9e154f7414349148891f5cc6baf1f43, type: 3}
---- !u!114 &795475605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 795475601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f77fc81863a52ad46a7ea81f48a729cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &821050335 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4468486112413940, guid: a109128cbfd6aac459120af1c0c5165b,
