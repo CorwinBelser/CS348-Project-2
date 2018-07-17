@@ -25,6 +25,7 @@ public class DictionaryManager : MonoBehaviour {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
             LoadAllFiles();
         }
         else
@@ -36,6 +37,7 @@ public class DictionaryManager : MonoBehaviour {
 
     private void LoadAllFiles()
     {
+        string[] separator = new string[] { "\r\n" };
         /* Load the full list of words */
         TextAsset fullList = Resources.Load<TextAsset>(FULL_WORD_LIST_PATH);
         if (fullList == null)
@@ -45,7 +47,7 @@ public class DictionaryManager : MonoBehaviour {
         }
         else
         {
-            allWords = fullList.text.Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
+            allWords = fullList.text.Split(separator, StringSplitOptions.None);
             Debug.Log("Loaded " + allWords.Length + " words into master word list");
         }
 
@@ -58,7 +60,7 @@ public class DictionaryManager : MonoBehaviour {
         }
         else
         {
-            gradeLevelWords = gradeLevelList.text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            gradeLevelWords = gradeLevelList.text.Split(separator, StringSplitOptions.None);
             Debug.Log("Loaded " + gradeLevelWords.Length + " words into grade level word list");
         }
 
@@ -71,7 +73,7 @@ public class DictionaryManager : MonoBehaviour {
         }
         else
         {
-            string[] combinations = letterCollectionList.text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] combinations = letterCollectionList.text.Split(separator, StringSplitOptions.None);
             letterCollections = new string[combinations.Length];
             collectionWordCounts = new int[combinations.Length];
             for (int i = 0; i < combinations.Length; i++)
