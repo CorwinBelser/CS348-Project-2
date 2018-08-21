@@ -12,7 +12,7 @@ public class DictionaryManager : MonoBehaviour {
     private string[] gradeLevelWords; /* Holds the grade-level words */
     private string[] letterCollections; /* Holds the list of letter collections generated from grade-level words */
     private int[] collectionWordCounts; /* Holds the number of words each collection can make */
-    private const string FULL_WORD_LIST_PATH = "Words/full_list";
+    private const string FULL_WORD_LIST_PATH = "Words/full_list_curated";
     private const string GRADE_LEVEL_WORD_LIST_PATH = "Words/gradeLevelWords";
     private const string LETTER_COLLECTION_LIST_PATH = "Words/collectionsWithCount";
 
